@@ -6,28 +6,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.kuta.conf.Config;
+import com.kuta.db.DatabaseConnector;
 
 
 public class Main{
 
     public static void main(String[] args) {
-        System.out.println("Iam running");
-        String sql= "select * from InsuranceCompany;";
-        String connectionUrl = "jdbc:mysql://localhost:3306/alfa3";
 
-        try (Connection conn = (Connection) DriverManager.getConnection(connectionUrl, "charming", "kuta"); 
-        PreparedStatement ps =  (PreparedStatement) conn.prepareStatement(sql); 
-        ResultSet rs = ps.executeQuery()) {
+        Config config = null;
 
-            while(rs.next()){
-                System.out.println("Executed query");
-                System.out.println(rs.getString("name"));
-
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Exception encountered");
-            e.printStackTrace();
+        try{
+            config = Config.createFromFile("/home/charming/Projects/code/pv/java/alfa3/conf/config.json");
+            System.out.println(config);
+        }catch(Exception E){
+            System.out.println("Config exception");
+            
         }
+
+        DatabaseConnector.init(config.db.host,config.db.name,config.db.username,config.db.password);
+        System.out.println("Connected:"+DatabaseConnector.testConnection());
     }
 }

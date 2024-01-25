@@ -1,3 +1,9 @@
 {
+    "db":{
+        "database_host":"jdbc:mysql://localhost:3306",
+        "database_name":"alfa3",
+        "username":"charming",
+        "password":"kuta"
+    }
 
 }
