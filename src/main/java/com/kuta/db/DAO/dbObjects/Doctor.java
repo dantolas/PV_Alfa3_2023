@@ -1,13 +1,13 @@
 package com.kuta.db.DAO.dbObjects;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * Doctor
  */
 public class Doctor {
 
-    public Doctor(String id, String fname, String lname, LocalDate startedPractice) {
+    public Doctor(String id, String fname, String lname, Date startedPractice) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -16,7 +16,7 @@ public class Doctor {
     private String id;
     private String fname;
     private String lname;
-    private LocalDate startedPractice;
+    private Date startedPractice;
 
     public String getId() {
         return id;
@@ -27,7 +27,7 @@ public class Doctor {
     public String getLname() {
         return lname;
     }
-    public LocalDate getStartedPractice() {
+    public Date getStartedPractice() {
         return startedPractice;
     }
     

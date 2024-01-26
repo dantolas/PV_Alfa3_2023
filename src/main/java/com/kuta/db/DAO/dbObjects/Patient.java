@@ -1,14 +1,32 @@
 package com.kuta.db.DAO.dbObjects;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Patient {
+
     private String id;
     private String fname;
     private String lname;
     private String birthNumber;
-    private LocalDate dof;
+    private Date dof;
     private boolean gender;
+
+
+
+    public Patient(String id, String fname, String lname, String birthNumber, Date dof, boolean gender) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.birthNumber = birthNumber;
+        this.dof = dof;
+        this.gender = gender;
+    }
+
+    public Patient(){
+
+    }
+
+
     public String getId() {
         return id;
     }
@@ -21,11 +39,35 @@ public class Patient {
     public String getBirthNumber() {
         return birthNumber;
     }
-    public LocalDate getDof() {
+    public Date getDof() {
         return dof;
     }
     public boolean isGender() {
         return gender;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public void setBirthNumber(String birthNumber) {
+        this.birthNumber = birthNumber;
+    }
+
+    public void setDof(Date dof) {
+        this.dof = dof;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
     }
 
 
