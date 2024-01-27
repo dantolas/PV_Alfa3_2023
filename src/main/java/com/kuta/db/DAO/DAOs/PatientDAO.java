@@ -15,21 +15,21 @@ import com.kuta.db.DAO.dbObjects.Patient;
 public class PatientDAO implements DAO<Patient>{
 
     @Override
-    public Patient getByUUID(String id) {
+    public Patient getByUUID(byte[] id) {
         String sql = "Select * from Patient where id = ?;";
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,id);
+            ps.setBytes(1,id);
 
             try(ResultSet results = ps.executeQuery()){
 
                 while(results.next()){
                     Patient patient = new Patient();
-                    patient.setId(results.getString(0));
-                    patient.setFname(results.getString(1));
-                    patient.setLname(results.getString(2));
-                    patient.setBirthNumber(results.getString(3));
-                    patient.setDof(results.getDate(4));
-                    patient.setGender(results.getBoolean(5));
+                    patient.setId(results.getBytes(1));
+                    patient.setFname(results.getString(2));
+                    patient.setLname(results.getString(3));
+                    patient.setBirthNumber(results.getString(4));
+                    patient.setDof(results.getDate(5));
+                    patient.setGender(results.getBoolean(6));
                     return patient;
                 }
                 return null;
@@ -51,12 +51,12 @@ public class PatientDAO implements DAO<Patient>{
             List<Patient> patients = new ArrayList<>();
             while(results.next()){
                 Patient patient= new Patient();
-                patient.setId(results.getString(0));
-                patient.setFname(results.getString(1));
-                patient.setLname(results.getString(2));
-                patient.setBirthNumber(results.getString(3));
-                patient.setDof(results.getDate(4));
-                patient.setGender(results.getBoolean(5));
+                patient.setId(results.getBytes(1));
+                patient.setFname(results.getString(2));
+                patient.setLname(results.getString(3));
+                patient.setBirthNumber(results.getString(4));
+                patient.setDof(results.getDate(5));
+                patient.setGender(results.getBoolean(6));
                 patients.add(patient);
             }
             return patients;
@@ -74,45 +74,40 @@ public class PatientDAO implements DAO<Patient>{
         values(?,?,?,?,?);
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,t.getFname());
-            ps.setString(1,t.getLname());
-            ps.setString(2,t.getBirthNumber());
-            ps.setDate(3,t.getDof());
-            ps.setBoolean(4,t.isGender());
+            ps.setString(1,t.getFname());
+            ps.setString(2,t.getLname());
+            ps.setString(3,t.getBirthNumber());
+            ps.setDate(4,t.getDof());
+            ps.setBoolean(5,t.isGender());
 
-            try(ResultSet results = ps.executeQuery()){
-
-            }
+            return ps.executeUpdate() > 0;
         }catch(SQLException e){
+            e.printStackTrace();
             return false;
         }
-
-        return true;
     }
 
     @Override
     public boolean update(Patient t) {
-        String sql = """
+        String sql = 
+        """
         UPDATE Patient
-        set fname = ?,lname = ?, birth_number,dof= ?,gender =?
+        SET fname = ?,lname = ?, birth_number = ?,dof= ?,gender =?
         where id = ?;
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,t.getFname());
-            ps.setString(1,t.getLname());
-            ps.setString(2,t.getBirthNumber());
-            ps.setDate(3,t.getDof());
-            ps.setBoolean(4,t.isGender());
-            ps.setString(5,t.getId());
+            ps.setString(1,t.getFname());
+            ps.setString(2,t.getLname());
+            ps.setString(3,t.getBirthNumber());
+            ps.setDate(4,t.getDof());
+            ps.setBoolean(5,t.isGender());
+            ps.setBytes(6,t.getId());
 
-            try(ResultSet results = ps.executeQuery()){
-
-            }
+            return ps.executeUpdate() > 0;
         }catch(SQLException e){
             return false;
         }
 
-        return true;
     }
 
     @Override
@@ -122,16 +117,12 @@ public class PatientDAO implements DAO<Patient>{
         where id = ?;
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,t.getId());
+            ps.setBytes(1,t.getId());
 
-            try(ResultSet results = ps.executeQuery()){
-
-            }
+            return ps.executeUpdate() > 0;
         }catch(SQLException e){
             return false;
         }
-
-        return true;
 
     }
 

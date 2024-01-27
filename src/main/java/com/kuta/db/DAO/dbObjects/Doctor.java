@@ -7,18 +7,20 @@ import java.sql.Date;
  */
 public class Doctor {
 
-    public Doctor(String id, String fname, String lname, Date startedPractice) {
+    public Doctor(byte[] id, String fname, String lname, Date startedPractice) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.startedPractice = startedPractice;
     }
-    private String id;
+    public Doctor(){}
+
+    private byte[] id;
     private String fname;
     private String lname;
     private Date startedPractice;
 
-    public String getId() {
+    public byte[] getId() {
         return id;
     }
     public String getFname() {
@@ -29,6 +31,18 @@ public class Doctor {
     }
     public Date getStartedPractice() {
         return startedPractice;
+    }
+    public void setId(byte[] id) {
+        this.id = id;
+    }
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+    public void setStartedPractice(Date startedPractice) {
+        this.startedPractice = startedPractice;
     }
     
 }

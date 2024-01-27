@@ -12,10 +12,11 @@ public interface DAO<T> {
     /**
      * Get a row by it's UUID.
      * Every table in the DB has a UUID.
+     * The UUID in db is stored as BINARY(16), so a byte[] should be provided
      * @param id
      * @return
      */
-    T getByUUID(String id);
+    T getByUUID(byte[] id);
     
     /**
      * Get all rows in DB.

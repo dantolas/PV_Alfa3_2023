@@ -6,11 +6,11 @@ package com.kuta.db.DAO.dbObjects;
 public class InsuranceCompany {
 
     
-    private String id;
+    private byte[] id;
     private String name;
     private int uniqueNumber;
     private String shortcut;
-    public String getId() {
+    public byte[] getId() {
         return id;
     }
     public String getName() {

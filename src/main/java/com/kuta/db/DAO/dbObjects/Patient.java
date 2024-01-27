@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Patient {
 
-    private String id;
+    private byte[] id;
     private String fname;
     private String lname;
     private String birthNumber;
@@ -13,8 +13,16 @@ public class Patient {
 
 
 
-    public Patient(String id, String fname, String lname, String birthNumber, Date dof, boolean gender) {
+    public Patient(byte[] id, String fname, String lname, String birthNumber, Date dof, boolean gender) {
         this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.birthNumber = birthNumber;
+        this.dof = dof;
+        this.gender = gender;
+    }
+
+    public Patient(String fname, String lname, String birthNumber, Date dof, boolean gender) {
         this.fname = fname;
         this.lname = lname;
         this.birthNumber = birthNumber;
@@ -27,7 +35,7 @@ public class Patient {
     }
 
 
-    public String getId() {
+    public byte[] getId() {
         return id;
     }
     public String getFname() {
@@ -46,7 +54,7 @@ public class Patient {
         return gender;
     }
 
-    public void setId(String id) {
+    public void setId(byte[] id) {
         this.id = id;
     }
 

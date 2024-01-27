@@ -7,14 +7,14 @@ import java.util.List;
 public class Prescription {
 
 
-    String id;
+    byte[] id;
     Patient patient;
     Doctor doctor;
     InsuranceCompany insuranceCompany;
     String diagnosis;
     List<Medication> meds;
 
-    public String getId() {
+    public byte[] getId() {
         return id;
     }
     public String getDiagnosis() {

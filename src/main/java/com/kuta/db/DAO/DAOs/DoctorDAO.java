@@ -18,19 +18,19 @@ public class DoctorDAO implements DAO<Doctor>{
      * Gets a row by UUID
      */
     @Override
-    public Doctor getByUUID(String id) {
+    public Doctor getByUUID(byte[] id) {
         String sql = "Select * from Doctor where id = ?;";
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,id);
+            ps.setBytes(1,id);
 
             try(ResultSet results = ps.executeQuery()){
 
                 while(results.next()){
                     Doctor doctor = new Doctor(
-                        results.getString(0),
-                        results.getString(1),
+                        results.getBytes(1),
                         results.getString(2),
-                        results.getDate(3)
+                        results.getString(3),
+                        results.getDate(4)
                     );
                     return doctor;
                 }
@@ -52,10 +52,10 @@ public class DoctorDAO implements DAO<Doctor>{
             List<Doctor> doctors = new ArrayList<>();
             while(results.next()){
                 Doctor doctor = new Doctor(
-                    results.getString(0),
-                    results.getString(1),
+                    results.getBytes(1),
                     results.getString(2),
-                    results.getDate(3)
+                    results.getString(3),
+                    results.getDate(4)
                 );
                 doctors.add(doctor);
             }
@@ -73,19 +73,16 @@ public class DoctorDAO implements DAO<Doctor>{
         values(?,?,?);
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,t.getFname());
-            ps.setString(1,t.getLname());
-            ps.setDate(2,t.getStartedPractice());
+            ps.setString(1,t.getFname());
+            ps.setString(2,t.getLname());
+            ps.setDate(3,t.getStartedPractice());
 
+            return ps.executeUpdate() > 0;
 
-            try(ResultSet results = ps.executeQuery()){
-
-            }
         }catch(SQLException e){
             return false;
         }
 
-        return true;
     }
 
     @Override
@@ -93,25 +90,22 @@ public class DoctorDAO implements DAO<Doctor>{
         String sql = 
         """
         UPDATE Doctor 
-        set fname = ?, set lname = ?, set started_practice = ?
+        set fname = ?, lname = ?, started_practice = ?
         where id = ?;
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,t.getFname());
-            ps.setString(1,t.getLname());
-            ps.setDate(2,t.getStartedPractice());
-            ps.setString(3,t.getId());
+            ps.setString(1,t.getFname());
+            ps.setString(2,t.getLname());
+            ps.setDate(3,t.getStartedPractice());
+            ps.setBytes(4,t.getId());
 
-
-            try(ResultSet results = ps.executeQuery()){
-
-            }
+            return ps.executeUpdate() > 0;
 
         }catch(SQLException e){
+            e.printStackTrace();
             return false;
         }
 
-        return true;
     }
 
     @Override
@@ -122,18 +116,14 @@ public class DoctorDAO implements DAO<Doctor>{
         where id = ?;
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(0,t.getId());
+            ps.setBytes(1,t.getId());
 
-
-            try(ResultSet results = ps.executeQuery()){
-
-            }
+            return ps.executeUpdate() > 0;
 
         }catch(SQLException e){
+            e.printStackTrace();
             return false;
         }
-
-        return true;
 
     }
 
