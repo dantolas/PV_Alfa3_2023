@@ -57,7 +57,12 @@ public class PatientDAO implements DAO<Patient>{
 
     @Override
     public List<Patient> getAll() {
-        String sql = "Select * from Patient;";
+        String sql = 
+        """
+        Select id,fname,lname,birth_number,dof,gender,insurance_number,insurance_company_id
+        from Patient 
+        where id = ?;
+        """;
         try(
         ResultSet results = DatabaseConnector.prepSql(sql).executeQuery();
         ){
@@ -70,6 +75,10 @@ public class PatientDAO implements DAO<Patient>{
                 patient.setBirthNumber(results.getString(4));
                 patient.setDof(results.getDate(5));
                 patient.setGender(results.getBoolean(6));
+                patient.setInsuranceNumber(results.getString(7));
+                patient.setInsuranceCompany(compDAO.getByUUID(results.getBytes(8)));
+
+
                 patients.add(patient);
             }
             return patients;
@@ -83,8 +92,8 @@ public class PatientDAO implements DAO<Patient>{
     @Override
     public boolean insert(Patient t) {
         String sql = """
-        Insert into Patient(fname,lname,birth_number,dof,gender) 
-        values(?,?,?,?,?);
+        Insert into Patient(fname,lname,birth_number,dof,gender,insurance_number,insurance_company_id) 
+        values(?,?,?,?,?,?,?);
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
             ps.setString(1,t.getFname());
@@ -92,7 +101,8 @@ public class PatientDAO implements DAO<Patient>{
             ps.setString(3,t.getBirthNumber());
             ps.setDate(4,t.getDof());
             ps.setBoolean(5,t.isGender());
-
+            ps.setString(6,t.getInsuranceNumber());
+            ps.setBytes(7,t.getInsuranceId());
             return ps.executeUpdate() > 0;
         }catch(SQLException e){
             e.printStackTrace();
@@ -105,7 +115,7 @@ public class PatientDAO implements DAO<Patient>{
         String sql = 
         """
         UPDATE Patient
-        SET fname = ?,lname = ?, birth_number = ?,dof= ?,gender =?
+        SET fname = ?,lname = ?,birth_number = ?,dof = ?,gender = ?,insurance_number = ?,insurance_company_id = ?
         where id = ?;
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
@@ -114,7 +124,9 @@ public class PatientDAO implements DAO<Patient>{
             ps.setString(3,t.getBirthNumber());
             ps.setDate(4,t.getDof());
             ps.setBoolean(5,t.isGender());
-            ps.setBytes(6,t.getId());
+            ps.setString(6,t.getInsuranceNumber());
+            ps.setBytes(7,t.getInsuranceId());
+            ps.setBytes(8,t.getId());
 
             return ps.executeUpdate() > 0;
         }catch(SQLException e){

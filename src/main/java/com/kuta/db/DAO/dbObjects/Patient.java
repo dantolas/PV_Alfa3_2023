@@ -64,6 +64,9 @@ public class Patient {
     public String getInsuranceOrigin(){
         return insuranceCompany.getCountryOfOrigin();
     }
+    public byte[] getInsuranceId(){
+        return insuranceCompany.getId();
+    }
     public void setInsuranceCompany(InsuranceCompany insuranceCompany) {
         this.insuranceCompany = insuranceCompany;
     }
