@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kuta.db.DatabaseConnector;
+import com.kuta.db.DAO.dbObjects.InsuranceCompany;
 import com.kuta.db.DAO.dbObjects.Patient;
 
 /**
@@ -14,32 +15,44 @@ import com.kuta.db.DAO.dbObjects.Patient;
  */
 public class PatientDAO implements DAO<Patient>{
 
+    private DAO<InsuranceCompany> compDAO;
+
+    public PatientDAO(DAO<InsuranceCompany> compDAO){
+        this.compDAO = compDAO;
+    }
+
     @Override
     public Patient getByUUID(byte[] id) {
-        String sql = "Select * from Patient where id = ?;";
+        String sql = 
+        """
+        Select fname,lname,birth_number,dof,gender,insurance_number,insurance_company_id
+        from Patient 
+        where id = ?;
+        """;
+        Patient patient = new Patient();
+        patient.setId(id);
+        byte[] companyId = null;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
             ps.setBytes(1,id);
 
             try(ResultSet results = ps.executeQuery()){
 
                 while(results.next()){
-                    Patient patient = new Patient();
-                    patient.setId(results.getBytes(1));
-                    patient.setFname(results.getString(2));
-                    patient.setLname(results.getString(3));
-                    patient.setBirthNumber(results.getString(4));
-                    patient.setDof(results.getDate(5));
-                    patient.setGender(results.getBoolean(6));
-                    return patient;
+                    patient.setFname(results.getString(1));
+                    patient.setLname(results.getString(2));
+                    patient.setBirthNumber(results.getString(3));
+                    patient.setDof(results.getDate(4));
+                    patient.setGender(results.getBoolean(5));
+                    patient.setInsuranceNumber(results.getString(6));
+
+                    companyId = results.getBytes(7);
+                    patient.setInsuranceCompany(compDAO.getByUUID(companyId));
                 }
-                return null;
-
+                return patient;
             }
-
         }catch(SQLException e){
             return null;
         }
-
     }
 
     @Override

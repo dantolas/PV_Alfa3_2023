@@ -27,7 +27,8 @@ public class MedicationDAO implements DAO<Medication>{
                         results.getBytes(1),
                         results.getString(2),
                         results.getString(3),
-                        results.getString(4)
+                        results.getString(4),
+                        Medication.medType.valueOf(results.getString(5))
                     );
                     return med;
                 }
@@ -45,16 +46,16 @@ public class MedicationDAO implements DAO<Medication>{
         String sql = "Select * from Medication;";
         try(
         ResultSet results = DatabaseConnector.prepSql(sql).executeQuery();
-        ){
+    ){
             List<Medication> meds= new ArrayList<>();
             while(results.next()){
-                    Medication med= new Medication(
-                        results.getBytes(1),
-                        results.getString(2),
-                        results.getString(3),
-                        results.getString(4),
-                        results.getString(5)
-                    );
+                Medication med= new Medication(
+                    results.getBytes(1),
+                    results.getString(2),
+                    results.getString(3),
+                    results.getString(4),
+                    Medication.medType.valueOf(results.getString(5))
+                );
                 meds.add(med);
             }
             return meds;
@@ -67,17 +68,19 @@ public class MedicationDAO implements DAO<Medication>{
     @Override
     public boolean insert(Medication t) {
         String sql = """
-        Insert into Medication(name,short_descriptionn,detailed_description,type)
+        Insert into Medication(name,short_description,detailed_description,type)
         values(?,?,?,?);
         """;
         try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
             ps.setString(1,t.getName());
-            ps.setString(2,t.getType());
-            ps.setDate(3,t.getStartedPractice());
+            ps.setString(2,t.getShortDescription());
+            ps.setString(3,t.getLongDescription());
+            ps.setString(4,t.getType().toString());
 
             return ps.executeUpdate() > 0;
 
         }catch(SQLException e){
+            e.printStackTrace();
             return false;
         }
 
@@ -86,14 +89,41 @@ public class MedicationDAO implements DAO<Medication>{
 
     @Override
     public boolean update(Medication t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        String sql = """
+        UPDATE Medication
+        set name = ?, short_description = ?, detailed_description = ?, type = ?
+        where id = ?;
+        """;
+        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
+            ps.setString(1,t.getName());
+            ps.setString(2,t.getShortDescription());
+            ps.setString(3,t.getLongDescription());
+            ps.setString(4,t.getType().toString());
+            ps.setBytes(5,t.getId());
+
+            return ps.executeUpdate() > 0;
+
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean delete(Medication t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String sql = """
+        DELETE FROM Medication 
+        where id = ?;
+        """;
+        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
+            ps.setBytes(1,t.getId());
+
+            return ps.executeUpdate() > 0;
+
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     

@@ -5,34 +5,56 @@ package com.kuta.db.DAO.dbObjects;
  */
 public class Medication {
 
-    public Medication(String name, String shortDescription,String longDescription, String type) {
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.longDescription = longDescription;
-        this.type = type;
+    public static enum medType{
+        pills,
+        tablets,
+        syrup,
+        ointment,
+        herbs
     }
-    public Medication(byte[] id, String name, String shortDescription,String longDescription, String type) {
-        this.id = id;
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.longDescription = longDescription;
-        this.type = type;
-    }
+
     private byte[] id;
     private String name;
     private String shortDescription;
     private String longDescription;
+    private medType type;
+
+    public Medication(){}
+
+
+    public Medication(String name, String shortDescription, String longDescription, medType type) {
+        this.name = name;
+        if(shortDescription.length() > 500) shortDescription = shortDescription.substring(0,499);
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.type = type;
+    }
+    public Medication(byte[] id, String name, String shortDescription, String longDescription, medType type) {
+        this.id = id;
+        this.name = name;
+        if(shortDescription.length() > 500) shortDescription = shortDescription.substring(0,499);
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.type = type;
+    }
+    public byte[] getId() {
+        return id;
+    }
     public void setId(byte[] id) {
         this.id = id;
+    }
+    public String getName() {
+        return name;
     }
     public void setName(String name) {
         this.name = name;
     }
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public String getShortDescription() {
+        return shortDescription;
     }
-    public void setType(String type) {
-        this.type = type;
+    public void setShortDescription(String shortDescription) {
+        if(shortDescription.length() > 500) shortDescription = shortDescription.substring(0,499);
+        this.shortDescription = shortDescription;
     }
     public String getLongDescription() {
         return longDescription;
@@ -40,19 +62,12 @@ public class Medication {
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
-    private String type;
-    public byte[] getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getShortDescription() {
-        return shortDescription;
-    }
-    public String getType() {
+    public medType getType() {
         return type;
     }
+    public void setType(medType type) {
+        this.type = type;
+    };
 
-    
+
 }
