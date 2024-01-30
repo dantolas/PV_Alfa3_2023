@@ -17,23 +17,25 @@ public class DatabaseConnector {
 
     public static Connection getConnection() throws SQLException{
         return DriverManager.getConnection(connectionUrl, username,password);
-
     };
 
-    public static PreparedStatement prepSql(String sql) throws SQLException{
+    public static PreparedStatement prepSql(Connection c,String sql) throws SQLException{
 
-        return getConnection().prepareStatement(sql);
+            return c.prepareStatement(sql);
     }
 
     public static boolean testConnection(){
         String testSql = "SELECT version()";
 
-        try (
-        PreparedStatement ps =  (PreparedStatement) getConnection().prepareStatement(testSql); 
-        
-        ResultSet rs = ps.executeQuery()
+        try(Connection c = getConnection()){
+            try (
+            PreparedStatement ps = prepSql(c,testSql); 
+
+            ResultSet rs = ps.executeQuery()
         ){
-            return true;
+                return true;
+
+            }
 
         }catch(SQLException e){
 
