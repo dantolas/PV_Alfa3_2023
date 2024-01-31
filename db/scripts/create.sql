@@ -6,7 +6,10 @@ create table IF NOT EXISTS Patient(
     birth_number varchar(255) not null unique,
     dof date not null,
     gender BIT(1)  not null,
-    constraint gender_check check(gender = 1 OR gender = 0)
+    constraint gender_check check(gender = 1 OR gender = 0),
+    insurance_company_id BINARY(16),
+    constraint fk_insurance foreign key(insurance_company_id) references InsuranceCompany(id),
+    insurance_number varchar(200)
 );
 
 COMMIT;
@@ -23,7 +26,7 @@ COMMIT;
 create table IF NOT EXISTS InsuranceCompany(
     id BINARY(16) primary key default (UUID_TO_BIN(UUID())),
     name varchar(255) not null unique,
-    unique_number int unique not null,
+    country_of_origin not null,
     shortcut varchar(10)
 );
 
@@ -45,9 +48,8 @@ create table IF NOT EXISTS ePrescription(
     constraint fk_patient foreign key(patient_id) references Patient(id),
     doctor_id BINARY(16),
     constraint fk_doctor foreign key(doctor_id) references Doctor(id),
-    insurance_id BINARY(16),
-    constraint fk_insurance foreign key(insurance_id) references InsuranceCompany(id),
-    diagnosis varchar(255)
+    diagnosis varchar(255),
+    date_prescribed date not null default (NOW());
 );
 
 COMMIT;

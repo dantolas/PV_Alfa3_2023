@@ -1,5 +1,6 @@
 package com.kuta.db.DAO.DAOs;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,23 +18,26 @@ public class MedicationDAO implements DAO<Medication>{
     @Override
     public Medication getByUUID(byte[] id) {
         String sql = "Select * from Medication where id = ?;";
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setBytes(1,id);
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            try(ResultSet results = ps.executeQuery()){
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setBytes(1,id);
 
-                while(results.next()){
-                    Medication med= new Medication(
-                        results.getBytes(1),
-                        results.getString(2),
-                        results.getString(3),
-                        results.getString(4),
-                        Medication.medType.valueOf(results.getString(5))
-                    );
-                    return med;
+                try(ResultSet results = ps.executeQuery()){
+
+                    while(results.next()){
+                        Medication med= new Medication(
+                            results.getBytes(1),
+                            results.getString(2),
+                            results.getString(3),
+                            results.getString(4),
+                            Medication.medType.valueOf(results.getString(5))
+                        );
+                        return med;
+                    }
+                    return null;
+
                 }
-                return null;
-
             }
 
         }catch(SQLException e){
@@ -44,21 +48,26 @@ public class MedicationDAO implements DAO<Medication>{
     @Override
     public List<Medication> getAll() {
         String sql = "Select * from Medication;";
-        try(
-        ResultSet results = DatabaseConnector.prepSql(sql).executeQuery();
-    ){
-            List<Medication> meds= new ArrayList<>();
-            while(results.next()){
-                Medication med= new Medication(
-                    results.getBytes(1),
-                    results.getString(2),
-                    results.getString(3),
-                    results.getString(4),
-                    Medication.medType.valueOf(results.getString(5))
-                );
-                meds.add(med);
+        try(Connection c = DatabaseConnector.getConnection()){
+
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+
+                try(ResultSet results = ps.executeQuery()){
+                    List<Medication> meds= new ArrayList<>();
+                    while(results.next()){
+                        Medication med= new Medication(
+                            results.getBytes(1),
+                            results.getString(2),
+                            results.getString(3),
+                            results.getString(4),
+                            Medication.medType.valueOf(results.getString(5))
+                        );
+                        meds.add(med);
+                    }
+                    return meds;
+                }
+
             }
-            return meds;
 
         }catch(SQLException e){
             return null;
@@ -71,13 +80,16 @@ public class MedicationDAO implements DAO<Medication>{
         Insert into Medication(name,short_description,detailed_description,type)
         values(?,?,?,?);
         """;
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(1,t.getName());
-            ps.setString(2,t.getShortDescription());
-            ps.setString(3,t.getLongDescription());
-            ps.setString(4,t.getType().toString());
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            return ps.executeUpdate() > 0;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setString(1,t.getName());
+                ps.setString(2,t.getShortDescription());
+                ps.setString(3,t.getLongDescription());
+                ps.setString(4,t.getType().toString());
+
+                return ps.executeUpdate() > 0;
+            }
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -94,16 +106,19 @@ public class MedicationDAO implements DAO<Medication>{
         set name = ?, short_description = ?, detailed_description = ?, type = ?
         where id = ?;
         """;
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(1,t.getName());
-            ps.setString(2,t.getShortDescription());
-            ps.setString(3,t.getLongDescription());
-            ps.setString(4,t.getType().toString());
-            ps.setBytes(5,t.getId());
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            return ps.executeUpdate() > 0;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setString(1,t.getName());
+                ps.setString(2,t.getShortDescription());
+                ps.setString(3,t.getLongDescription());
+                ps.setString(4,t.getType().toString());
+                ps.setBytes(5,t.getId());
 
-        }catch(SQLException e){
+                return ps.executeUpdate() > 0;
+
+            }
+        } catch(SQLException e){
             e.printStackTrace();
             return false;
         }
@@ -115,16 +130,17 @@ public class MedicationDAO implements DAO<Medication>{
         DELETE FROM Medication 
         where id = ?;
         """;
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setBytes(1,t.getId());
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            return ps.executeUpdate() > 0;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setBytes(1,t.getId());
+
+                return ps.executeUpdate() > 0;
+            }
 
         }catch(SQLException e){
             e.printStackTrace();
             return false;
         }
     }
-
-    
 }

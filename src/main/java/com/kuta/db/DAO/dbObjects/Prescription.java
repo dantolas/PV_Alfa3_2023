@@ -1,5 +1,6 @@
 package com.kuta.db.DAO.dbObjects;
 
+import java.sql.Date;
 import java.util.List;
 /**
  * Prescription
@@ -7,10 +8,10 @@ import java.util.List;
 public class Prescription {
 
     public static class Item {
-        public Medication med;
-        public int amount;
-        public boolean insuranceCovered;
-        public String description;
+        private Medication med;
+        private int amount;
+        private boolean insuranceCovered;
+        private String description;
 
         public Item(){}
 
@@ -54,6 +55,8 @@ public class Prescription {
     Doctor doctor;
     String diagnosis;
     List<Item> items;
+
+    Date datePrescribed;
     
     public Prescription(){}
 
@@ -107,5 +110,12 @@ public class Prescription {
     }
 
 
+    public Date getDatePrescribed() {
+        return datePrescribed;
+    }
+
+    public void setDatePrescribed(Date datePrescribed) {
+        this.datePrescribed = datePrescribed;
+    }
     
 }

@@ -1,5 +1,6 @@
 package com.kuta.db.DAO.DAOs;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,22 +18,25 @@ public class InsuranceDAO implements DAO<InsuranceCompany>{
     @Override
     public InsuranceCompany getByUUID(byte[] id) {
         String sql = "Select * from InsuranceCompany where id = ?;";
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setBytes(1,id);
 
-            try(ResultSet results = ps.executeQuery()){
+        try(Connection c = DatabaseConnector.getConnection()){
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setBytes(1,id);
 
-                while(results.next()){
-                    InsuranceCompany comp= new InsuranceCompany(
-                        id,
-                        results.getString(2),
-                        results.getString(3),
-                        results.getString(4)
-                    );
-                    return comp;
+                try(ResultSet results = ps.executeQuery()){
+
+                    while(results.next()){
+                        InsuranceCompany comp= new InsuranceCompany(
+                            id,
+                            results.getString(2),
+                            results.getString(3),
+                            results.getString(4)
+                        );
+                        return comp;
+                    }
+                    return null;
+
                 }
-                return null;
-
             }
 
         }catch(SQLException e){
@@ -44,24 +48,27 @@ public class InsuranceDAO implements DAO<InsuranceCompany>{
     @Override
     public List<InsuranceCompany> getAll() {
         String sql = "Select * from InsuranceCompany;";
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            try(ResultSet results = ps.executeQuery()){
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
 
-                List<InsuranceCompany> companies = new ArrayList<>();
+                try(ResultSet results = ps.executeQuery()){
 
-                while(results.next()){
-                    InsuranceCompany comp= new InsuranceCompany(
-                        results.getBytes(1),
-                        results.getString(2),
-                        results.getString(3),
-                        results.getString(4)
-                    );
-                    companies.add(comp);
+                    List<InsuranceCompany> companies = new ArrayList<>();
+
+                    while(results.next()){
+                        InsuranceCompany comp= new InsuranceCompany(
+                            results.getBytes(1),
+                            results.getString(2),
+                            results.getString(3),
+                            results.getString(4)
+                        );
+                        companies.add(comp);
+                    }
+                    return companies;
+
                 }
-                return companies;
-
-            }
+        }
 
         }catch(SQLException e){
             return null;
@@ -75,13 +82,16 @@ public class InsuranceDAO implements DAO<InsuranceCompany>{
         Insert into InsuranceCompany(name,country_of_origin,shortcut)
         values(?,?,?);
         """;
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(1,t.getName());
-            ps.setString(2,t.getCountryOfOrigin());
-            ps.setString(3,t.getShortcut());
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            return ps.executeUpdate() > 0;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setString(1,t.getName());
+                ps.setString(2,t.getCountryOfOrigin());
+                ps.setString(3,t.getShortcut());
 
+                return ps.executeUpdate() > 0;
+
+        }
         }catch(SQLException e){
             e.printStackTrace();
             return false;
@@ -95,13 +105,16 @@ public class InsuranceDAO implements DAO<InsuranceCompany>{
         set name = ?, country_of_origin = ?, shortcut = ?
         where id = ?;
         """;
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setString(1,t.getName());
-            ps.setString(2,t.getCountryOfOrigin());
-            ps.setString(3,t.getShortcut());
-            ps.setBytes(4,t.getId());
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            return ps.executeUpdate() > 0;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setString(1,t.getName());
+                ps.setString(2,t.getCountryOfOrigin());
+                ps.setString(3,t.getShortcut());
+                ps.setBytes(4,t.getId());
+
+                return ps.executeUpdate() > 0;
+        }
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -116,10 +129,13 @@ public class InsuranceDAO implements DAO<InsuranceCompany>{
         DELETE FROM InsuranceCompany
         where id = ?;
         """;
-        try(PreparedStatement ps = DatabaseConnector.prepSql(sql)){
-            ps.setBytes(1,t.getId());
+        try(Connection c = DatabaseConnector.getConnection()){
 
-            return ps.executeUpdate() > 0;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+                ps.setBytes(1,t.getId());
+
+                return ps.executeUpdate() > 0;
+        }
 
         }catch(SQLException e){
             e.printStackTrace();

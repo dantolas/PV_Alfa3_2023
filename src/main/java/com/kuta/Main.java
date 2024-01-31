@@ -13,9 +13,12 @@ import com.kuta.db.DAO.DAOs.InsuranceDAO;
 import com.kuta.db.DAO.DAOs.MedicationDAO;
 import com.kuta.db.DAO.DAOs.PatientDAO;
 import com.kuta.db.DAO.DAOs.PrescriptionDAO;
+import com.kuta.db.DAO.dbObjects.Doctor;
 import com.kuta.db.DAO.dbObjects.InsuranceCompany;
+import com.kuta.db.DAO.dbObjects.Medication;
 import com.kuta.db.DAO.dbObjects.Patient;
 import com.kuta.db.DAO.dbObjects.Prescription;
+import com.kuta.db.DAO.dbObjects.Prescription.Item;
 
 
 public class Main{
@@ -33,34 +36,33 @@ public class Main{
         }
 
         DatabaseConnector.init(config.db.host,config.db.name,config.db.username,config.db.password);
-        try {
-
-            for (Connection connection : connections) {
-                System.out.println("Connection open:"+connection.isValid(10));
-                
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         System.out.println("Connected:"+DatabaseConnector.testConnection());
-
         DoctorDAO ddao = new DoctorDAO();
         InsuranceDAO idao = new InsuranceDAO();
         PatientDAO pdao = new PatientDAO(idao);
         MedicationDAO mdao = new MedicationDAO();
-        PrescriptionDAO prdao = new PrescriptionDAO(ddao,pdao,mdao);
-        byte[] id = HexFormat.of().parseHex("68610423BF5C11EE96EE8C1759ECD7D1");
 
-        Prescription p = prdao.getByUUID(id);
+        String diagnosis = "Atherosclerosis of other type of bypass graft(s) of the extremities with intermittent claudication, left leg";
+        Doctor doctor = ddao.getAll().get(0);
+        Patient patient = pdao.getAll().get(0);
 
-        System.out.println(p.getDiagnosis());
-        System.out.println(p.getMeds().size());
-        System.out.println(p.getDoctor().getFname());
-        System.out.println(p.getPatient().getLname());
-        System.out.println(p.getMeds().get(0).getDescription());
-        System.out.println(p.getMeds().get(0).getMed().getName());
+        Medication med = mdao.getAll().get(0);
+        
+        Item item = new Item();
+        item.setAmount(2);
+        item.setDescription("Totally new experimental medication, good luck");
+        item.setMed(med);
 
-        System.out.println(prdao.getAll().get(0).getPatient().getFname());
+        Prescription p = new Prescription();
+        p.setPatient(patient);
+        p.setDoctor(doctor);
+        p.setDiagnosis(diagnosis);
+        p.setMeds(new ArrayList<Item>(){{add(item);}});
+
+        PrescriptionDAO prdao = new PrescriptionDAO(ddao, pdao, mdao);
+        System.out.println("Inserting prescription:"+prdao.insert(p));
+
+        
     }
 
 }
