@@ -35,6 +35,7 @@ public class Main{
             
         }
 
+
         DatabaseConnector.init(config.db.host,config.db.name,config.db.username,config.db.password);
         System.out.println("Connected:"+DatabaseConnector.testConnection());
         DoctorDAO ddao = new DoctorDAO();
