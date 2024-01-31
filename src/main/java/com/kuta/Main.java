@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HexFormat;
 
+import com.kuta.app.ApplicationLayer;
 import com.kuta.conf.Config;
 import com.kuta.db.DatabaseConnector;
 import com.kuta.db.DAO.DAOs.DoctorDAO;
@@ -38,31 +39,8 @@ public class Main{
 
         DatabaseConnector.init(config.db.host,config.db.name,config.db.username,config.db.password);
         System.out.println("Connected:"+DatabaseConnector.testConnection());
-        DoctorDAO ddao = new DoctorDAO();
-        InsuranceDAO idao = new InsuranceDAO();
-        PatientDAO pdao = new PatientDAO(idao);
-        MedicationDAO mdao = new MedicationDAO();
 
-        String diagnosis = "Atherosclerosis of other type of bypass graft(s) of the extremities with intermittent claudication, left leg";
-        Doctor doctor = ddao.getAll().get(0);
-        Patient patient = pdao.getAll().get(0);
-
-        Medication med = mdao.getAll().get(0);
-        
-        Item item = new Item();
-        item.setAmount(2);
-        item.setDescription("Totally new experimental medication, good luck");
-        item.setMed(med);
-
-        Prescription p = new Prescription();
-        p.setPatient(patient);
-        p.setDoctor(doctor);
-        p.setDiagnosis(diagnosis);
-        p.setMeds(new ArrayList<Item>(){{add(item);}});
-
-        PrescriptionDAO prdao = new PrescriptionDAO(ddao, pdao, mdao);
-        System.out.println("Inserting prescription:"+prdao.insert(p));
-
+        ApplicationLayer.DEFAULT_INIT().run();
         
     }
 

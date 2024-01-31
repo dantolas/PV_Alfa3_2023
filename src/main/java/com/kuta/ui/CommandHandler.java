@@ -41,4 +41,8 @@ public class CommandHandler {
             c.execute(args);
         }
     }
+    public CommandHandler setUi(ConsoleUI ui){
+        this.cui = ui;
+        return this;
+    }
 }
