@@ -1,13 +1,16 @@
 package com.kuta.ui.commands;
 
-import com.kuta.ui.CommandHandler;
+import com.kuta.ui.ConsoleUI;
 
 /**
  * HelpCommand
  */
 public class HelpCommand implements CCommand{
 
-    CommandHandler handler;
+    ConsoleUI ui;
+    public HelpCommand(ConsoleUI ui){
+        this.ui = ui;
+    }
     @Override
     public String getName() {
         return "help";
@@ -24,7 +27,7 @@ public class HelpCommand implements CCommand{
 
     @Override
     public void execute(String... args) {
-        handler.getCui().printSeparatorLine();
+        ui.printSeparatorLine();
         String helpString =
         """
         |help| -> Lists all commands, or provides further information on specific commands.
@@ -32,9 +35,10 @@ public class HelpCommand implements CCommand{
 
         |exit|
         """;
+        ui.println(helpString);
         
 
-        handler.getCui().printSeparatorLine();
+        ui.printSeparatorLine();
     }
 
     

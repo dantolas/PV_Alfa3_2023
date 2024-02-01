@@ -1,15 +1,17 @@
 package com.kuta.ui.commands;
 
-import java.io.PrintStream;
+import com.kuta.ui.ConsoleUI;
 
 /**
  * ClearCommand
  */
 public class ClearCommand implements CCommand{
 
-    private PrintStream output;
-    
+    ConsoleUI ui;
 
+    public ClearCommand(ConsoleUI ui){
+        this.ui = ui;
+    }
     @Override
     public String getName() {
         return "clear";
@@ -28,8 +30,8 @@ public class ClearCommand implements CCommand{
     }
 
     private final void clearOutput(){
-        output.print("\033[H\033[2J");
-        output.flush();
+        ui.print("\033[H\033[2J");
+        ui.getOutputStream().flush();
     }
 
     

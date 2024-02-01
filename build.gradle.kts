@@ -49,6 +49,10 @@ tasks {
   }
 }
 
+// Pass default system input to gradle run (Default input stream)
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+}
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
