@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.HexFormat;
 import java.util.List;
 
+import com.kuta.app.dbObjects.Doctor;
+import com.kuta.app.dbObjects.Medication;
+import com.kuta.app.dbObjects.Patient;
+import com.kuta.app.dbObjects.Prescription;
+import com.kuta.app.dbObjects.Prescription.Item;
 import com.kuta.db.DatabaseConnector;
-import com.kuta.db.DAO.dbObjects.Doctor;
-import com.kuta.db.DAO.dbObjects.Medication;
-import com.kuta.db.DAO.dbObjects.Patient;
-import com.kuta.db.DAO.dbObjects.Prescription;
-import com.kuta.db.DAO.dbObjects.Prescription.Item;
 
 /**
  * PrescriptionDAO

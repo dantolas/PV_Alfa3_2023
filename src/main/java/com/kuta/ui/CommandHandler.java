@@ -59,6 +59,10 @@ public class CommandHandler {
         this.cui = ui;
         return this;
     }
+    public CommandHandler setAppLayer(ApplicationLayer appLayer){
+        this.appLayer = appLayer;
+        return this;
+    }
 
     public CommandHandler addDefaultCommands(){
         this.commands.add(new HelpCommand(this.cui));

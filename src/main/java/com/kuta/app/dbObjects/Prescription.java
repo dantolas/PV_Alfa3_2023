@@ -1,4 +1,4 @@
-package com.kuta.db.DAO.dbObjects;
+package com.kuta.app.dbObjects;
 
 import java.sql.Date;
 import java.util.List;

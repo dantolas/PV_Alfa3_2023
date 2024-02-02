@@ -1,16 +1,16 @@
 package com.kuta.db;
 
+import com.kuta.app.dbObjects.Doctor;
+import com.kuta.app.dbObjects.InsuranceCompany;
+import com.kuta.app.dbObjects.Medication;
+import com.kuta.app.dbObjects.Patient;
+import com.kuta.app.dbObjects.Prescription;
 import com.kuta.db.DAO.DAOs.DAO;
 import com.kuta.db.DAO.DAOs.DoctorDAO;
 import com.kuta.db.DAO.DAOs.InsuranceDAO;
 import com.kuta.db.DAO.DAOs.MedicationDAO;
 import com.kuta.db.DAO.DAOs.PatientDAO;
 import com.kuta.db.DAO.DAOs.PrescriptionDAO;
-import com.kuta.db.DAO.dbObjects.Doctor;
-import com.kuta.db.DAO.dbObjects.InsuranceCompany;
-import com.kuta.db.DAO.dbObjects.Medication;
-import com.kuta.db.DAO.dbObjects.Patient;
-import com.kuta.db.DAO.dbObjects.Prescription;
 
 /**
  *DataLayerAPI 

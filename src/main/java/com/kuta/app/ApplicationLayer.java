@@ -5,8 +5,8 @@ import java.io.PrintStream;
 import java.util.HexFormat;
 import java.util.List;
 
+import com.kuta.app.dbObjects.Doctor;
 import com.kuta.db.DataLayerAPI;
-import com.kuta.db.DAO.dbObjects.Doctor;
 import com.kuta.ui.CommandHandler;
 import com.kuta.ui.ConsoleUI;
 
@@ -20,7 +20,10 @@ public class ApplicationLayer {
     DataLayerAPI dataLayer;
 
     public void run(){
+        ui.printSeparatorLine();
+        ui.printSeparatorLine();
         ui.println(ui.WELCOME_MESSAGE);
+        ui.printSeparatorLine();
         ui.printSeparatorLine();
         while(true){
             try {
@@ -86,10 +89,11 @@ public class ApplicationLayer {
     }
 
     public final static ApplicationLayer DEFAULT_INIT(PrintStream output,InputStream input){
-        ConsoleUI ui = new ConsoleUI("=",10,output,input);
+        ConsoleUI ui = new ConsoleUI("=",20,output,input);
         CommandHandler handler = new CommandHandler().setUi(ui).addDefaultCommands();
-        DataLayerAPI dataLayer = new DataLayerAPI();
+        DataLayerAPI dataLayer = DataLayerAPI.createDefault();
         ApplicationLayer app = new ApplicationLayer().setConsoleUI(ui).setCommandHandler(handler).setDataLayer(dataLayer);
+        handler.setAppLayer(app);
         return app;
 
     }

@@ -47,14 +47,17 @@ public class DeleteCommand implements CCommand{
         """;
         ui.print(list);
         ui.printSeparatorLine();
-
-        while(true){
-            int numberInput = ui.readInputInt();
-            if(numberInput > 0) break;
-        }
+        int numberInput = ui.readInputInt(1,5)-1;
 
         SubCommand[] subs = {
+            ()->{},
+            ()->{},
+            ()->{},
+            ()->{},
+            ()->{deleteDoctor();}
         };
+
+        subs[numberInput].work();
     }
 
     public void deletePrescription(){
@@ -63,6 +66,9 @@ public class DeleteCommand implements CCommand{
 
     public void deleteDoctor(){
         handler.getAPI().printDoctorsList();
+        int numberInput = ui.readInputInt();
+        ui.print("Number u input:"+numberInput);
+        
 
 
     }

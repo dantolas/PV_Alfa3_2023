@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kuta.app.dbObjects.InsuranceCompany;
 import com.kuta.db.DatabaseConnector;
-import com.kuta.db.DAO.dbObjects.InsuranceCompany;
 
 /**
  * InsuranceDAO

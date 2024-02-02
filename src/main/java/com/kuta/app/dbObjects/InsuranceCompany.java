@@ -1,4 +1,4 @@
-package com.kuta.db.DAO.dbObjects;
+package com.kuta.app.dbObjects;
 
 /**
  * InsuranceCompany
