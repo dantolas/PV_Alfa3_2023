@@ -2,10 +2,7 @@ package com.kuta.ui;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.List;
 import java.util.Scanner;
-
-import com.kuta.ui.commands.CCommand;
 
 /**
  * ConsoleUI
@@ -50,6 +47,9 @@ public class ConsoleUI {
         reader = new Scanner(inputStream);
     }
 
+    /**
+     * Prints the visual seperator line to console
+     */
     public void printSeparatorLine(){
 
         StringBuilder line = new StringBuilder();
@@ -70,7 +70,12 @@ public class ConsoleUI {
     public void printf(String text,Object... args){
         outputStream.printf(text,args);
     }
-
+    
+    /**
+     * Reads user input until an integer is submitted.
+     * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
+     * @return The integer inputed, OR Integer.MIN_VALUE if the user types 'exit'
+     */
     public int readInputInt(){
         int number = 0;
         while(true){
@@ -78,6 +83,7 @@ public class ConsoleUI {
             try {
 
                 String input = reader.nextLine();
+                if(input.toLowerCase().equals("exit")) return Integer.MIN_VALUE;
                 number = Integer.parseInt(input);
                 break;
                 
@@ -87,6 +93,12 @@ public class ConsoleUI {
         }
         return number;
     }
+    /**
+     * Reads user input until an integer is submitted that fits within max.
+     * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
+     * @param Maximum value allowed
+     * @return The integer inputed, OR Integer.MIN_VALUE if the user types 'exit'
+     */
     public int readInputInt(int max){
         int number = 0;
         while(true){
@@ -94,6 +106,7 @@ public class ConsoleUI {
             try {
 
                 String input = reader.nextLine();
+                if(input.toLowerCase().equals("exit")) return Integer.MIN_VALUE;
                 number = Integer.parseInt(input);
                 if(number <= max)break;
                 println("Number must up to "+max);
@@ -104,6 +117,13 @@ public class ConsoleUI {
         }
         return number;
     }
+    /**
+     * Reads user input until an integer is submitted that fits within given range.
+     * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
+     * @param -0:min Minimum value allowed
+     * @param -1:max Maximum value allowed
+     * @return The integer inputed, OR Integer.MIN_VALUE if the user types 'exit'
+     */
     public int readInputInt(int min, int max){
         int number = 0;
         while(true){
@@ -111,8 +131,9 @@ public class ConsoleUI {
             try {
 
                 String input = reader.nextLine();
+                if(input.toLowerCase().equals("exit")) return Integer.MIN_VALUE;
                 number = Integer.parseInt(input);
-                if(number >= min && number >= max)break;
+                if(number >= min && number <= max)break;
                 println("Number must be within "+min+"-"+max);
                 
             } catch (Exception e) {
@@ -122,8 +143,11 @@ public class ConsoleUI {
         return number;
     }
 
+    /**
+     * Reads input string from user and returns it
+     * @return
+     */
     public String readInputString(){
-
         while(true){
             print(INPUT_INDICATOR);
             try {
@@ -132,6 +156,20 @@ public class ConsoleUI {
             } catch (Exception e) {
                 e.printStackTrace();
                 println("Please enter valid text.");
+            }
+        }
+    }
+
+    public boolean readInputBoolean(){
+        while(true){
+            println("Please enter (Y)es or (N)o.");
+            print(INPUT_INDICATOR);
+            try {
+                String input = reader.nextLine().toLowerCase();
+                if(input.startsWith("y")) return true;
+                if(input.startsWith("n")) return false;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

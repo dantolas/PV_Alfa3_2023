@@ -1,32 +1,15 @@
 package com.kuta;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HexFormat;
-import java.util.Scanner;
-
 import com.kuta.app.ApplicationLayer;
 import com.kuta.conf.Config;
 import com.kuta.db.DatabaseConnector;
-import com.kuta.db.DAO.DAOs.DoctorDAO;
-import com.kuta.db.DAO.DAOs.InsuranceDAO;
-import com.kuta.db.DAO.DAOs.MedicationDAO;
-import com.kuta.db.DAO.DAOs.PatientDAO;
-import com.kuta.db.DAO.DAOs.PrescriptionDAO;
-import com.kuta.db.DAO.dbObjects.Doctor;
-import com.kuta.db.DAO.dbObjects.InsuranceCompany;
-import com.kuta.db.DAO.dbObjects.Medication;
-import com.kuta.db.DAO.dbObjects.Patient;
-import com.kuta.db.DAO.dbObjects.Prescription;
-import com.kuta.db.DAO.dbObjects.Prescription.Item;
 
 
 public class Main{
 
     public static void main(String[] args) {
 
+        System.out.println(Integer.MIN_VALUE);
         Config config = null;
 
         try{

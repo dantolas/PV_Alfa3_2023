@@ -30,9 +30,15 @@ public class HelpCommand implements CCommand{
         ui.printSeparatorLine();
         String helpString =
         """
+        |report| -> Generate a data report.
+
+        |add| -> Add records to database.
+        |update| -> Update records in database.
+        |delete| -> Delete records from database.
+
         |help| -> Lists all commands, or provides further information on specific commands.
         |clear| -> Clears the console.
-
+        
         |exit|
         """;
         ui.println(helpString);

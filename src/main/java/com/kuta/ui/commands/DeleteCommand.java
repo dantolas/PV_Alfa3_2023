@@ -51,7 +51,7 @@ public class DeleteCommand implements CCommand{
 
         SubCommand[] subs = {
             ()->{},
-            ()->{},
+            ()->{deletePatient();},
             ()->{},
             ()->{},
             ()->{deleteDoctor();}
@@ -65,12 +65,7 @@ public class DeleteCommand implements CCommand{
     }
 
     public void deleteDoctor(){
-        handler.getAPI().printDoctorsList();
-        int numberInput = ui.readInputInt();
-        ui.print("Number u input:"+numberInput);
-        
-
-
+        handler.getAPI().deleteDoctor();
     }
 
     public void deleteInsuranceCompany(){
@@ -82,7 +77,7 @@ public class DeleteCommand implements CCommand{
     }
 
     public void deletePatient(){
-
+        handler.getAPI().deletePatient();
     }
 
 }

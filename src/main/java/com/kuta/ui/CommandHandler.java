@@ -34,6 +34,12 @@ public class CommandHandler {
         return this;
     }
 
+    public CCommand command(String cName){
+        for (CCommand c: commands) {
+            if(c.getName().equals(cName)) return c;
+        }
+        return null;
+    }
 
     public void handle(String input){
 
