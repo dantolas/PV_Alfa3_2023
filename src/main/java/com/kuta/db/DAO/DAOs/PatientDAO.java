@@ -64,7 +64,8 @@ public class PatientDAO implements DAO<Patient>{
         String sql = 
         """
         Select id,fname,lname,birth_number,dof,gender,insurance_number,insurance_company_id
-        from Patient;
+        from Patient
+        order by lname,fname;
         """;
         try(Connection c = DatabaseConnector.getConnection()){
 

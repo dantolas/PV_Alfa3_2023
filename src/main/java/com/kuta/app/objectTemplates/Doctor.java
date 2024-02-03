@@ -4,6 +4,7 @@ import java.sql.Date;
 
 /**
  * Doctor
+ * Object model representing the db table
  */
 public class Doctor {
 

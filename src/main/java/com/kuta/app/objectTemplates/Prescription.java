@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 /**
  * Prescription
+ * Object model representing the db table
  */
 public class Prescription {
 

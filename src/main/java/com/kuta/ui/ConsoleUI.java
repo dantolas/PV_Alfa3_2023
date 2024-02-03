@@ -5,7 +5,8 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
- * ConsoleUI
+ * This class provides command line interface functionality.
+ * Provides methods to both read user input and write output.
  */
 public class ConsoleUI {
 
@@ -26,7 +27,7 @@ public class ConsoleUI {
     ⣿⣿⣿⣿⣿⣷⣶⣶⣶⣶⣶⣶⣶⣶⣾⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀Kuta
     ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀C4b
     ⠙⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠋⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠈⠉⠉⠉⠛⠛⠛⠛⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀(Had no idea what a welcome message should look like don't judge me)⠀
+    ⠀⠀⠀⠀⠈⠉⠉⠉⠛⠛⠛⠛⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
     """;
     public final String GOODBYE_MESSAGE =
     """
@@ -39,6 +40,12 @@ public class ConsoleUI {
     Scanner reader;
 
 
+    /**
+     * @param separator Character used in line separators
+     * @param separatorLineLength Length of line separators
+     * @param outputStream Client output stream
+     * @param inputStream Client input stream
+     */
     public ConsoleUI(String separator, int separatorLineLength, PrintStream outputStream, InputStream inputStream) {
         this.separator = separator;
         this.separatorLineLength = separatorLineLength;
@@ -94,10 +101,9 @@ public class ConsoleUI {
         return number;
     }
     /**
-     * Reads user input until an integer is submitted that fits within max.
-     * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
-     * @param Maximum value allowed
-     * @return The integer inputed, OR max+1 if the user types 'exit'
+     * Reads use input until an integer is submitted. 
+     * @param max Maximum integer allowed
+     * @return Integer up to max OR max+1 if the user inputs 'exit'
      */
     public int readInputInt(int max){
         int number = 0;
@@ -118,11 +124,10 @@ public class ConsoleUI {
         return number;
     }
     /**
-     * Reads user input until an integer is submitted that fits within given range.
-     * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
-     * @param -0:min Minimum value allowed
-     * @param -1:max Maximum value allowed
-     * @return The integer inputed, OR max+1 if the user inputs 'exit'
+     * Reads user input until an integer is submitted.
+     * @param min Minimum value allowed
+     * @param max Maximum value allowed
+     * @return Integer in the given range OR max+1 if the user inputs 'exit'
      */
     public int readInputInt(int min, int max){
         int number = 0;
@@ -159,7 +164,11 @@ public class ConsoleUI {
             }
         }
     }
-
+    /**
+     * Reads input as boolean from the user.
+     * It asks for a yes or no confirmation.
+     * @return true if user enters yes or false if user enters no
+     */
     public boolean readInputBoolean(){
         while(true){
             println("Please enter (Y)es or (N)o.");

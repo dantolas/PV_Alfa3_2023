@@ -2,6 +2,7 @@ package com.kuta.app.objectTemplates;
 
 /**
  * Medication
+ * Object model representing the db table
  */
 public class Medication {
 

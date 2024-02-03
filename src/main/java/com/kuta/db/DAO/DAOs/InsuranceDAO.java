@@ -47,7 +47,7 @@ public class InsuranceDAO implements DAO<InsuranceCompany>{
 
     @Override
     public List<InsuranceCompany> getAll() {
-        String sql = "Select * from InsuranceCompany;";
+        String sql = "Select * from InsuranceCompany order by shortcut;";
         try(Connection c = DatabaseConnector.getConnection()){
 
             try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){

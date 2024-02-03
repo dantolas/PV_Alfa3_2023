@@ -13,7 +13,11 @@ import com.kuta.db.DAO.DAOs.PatientDAO;
 import com.kuta.db.DAO.DAOs.PrescriptionDAO;
 
 /**
- *DataLayerAPI 
+ * Serves as a bundler for the entire data layer of the application
+ * Provides functionality for making database calls and retreiving data
+ * from database.
+ *
+ * Uses DAO design pattern for database tables.
  */
 public class DataLayerAPI {
 
@@ -69,6 +73,10 @@ public class DataLayerAPI {
     };
 
 
+    /**
+     * Create a DataLayerAPI with default attributes
+     * @return
+     */
     public static DataLayerAPI createDefault(){
         DAO<InsuranceCompany> idao = new InsuranceDAO();
         DAO<Patient> pdao = new PatientDAO(idao);

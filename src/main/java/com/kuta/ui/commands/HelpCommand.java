@@ -33,6 +33,7 @@ public class HelpCommand implements CCommand{
         |report| -> Generate a data report.
 
         |add| -> Add records to database.
+        |read| -> Read records in database.
         |update| -> Update records in database.
         |delete| -> Delete records from database.
 

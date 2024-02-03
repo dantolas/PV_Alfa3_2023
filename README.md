@@ -1,89 +1,117 @@
 
-# Projekt alfa 3 -- Database system
+# Project alfa 3 -- Database system
 ## Kuta Samuel C4b 
 
 ## Table of contents (TOC)
-1.
-2.
-3.
-4.
-5.
+==========================
+1. [Introduction](##introduction)
+2. [Requirements](##requirements)
+3. [Installation](##installation)
+4. [Usage](##usage)
+5. [Configurations](##configurations)
+6. [Docs](##docs)
+7. [Testing](##testing-and-test-scenarios)
+8. [Dependencies](##dependencies)
+9. [Shortcomings](##things-to-work-on-and-shortcomings)
 
+## Introduction
+This application provides a database design for managing medical ePrescriptions
+for medication.
 
+It also provides and API to work with mentioned database, and a CLI that can
+operate on the API.
+
+The application provides basic CRUD functionality, along with generating data
+reports and a degree of configuration.
 
 ## Requirements
 `Java` - version *20.0.1*+
+`Git` - *OPTIONAL*
+`Gradle` - version *9.4*+ *OPTIONAL*
+
+## Installation
+For the full experience clone this repository from the command line
+`git clone address <directory>`
+
+Or just download the **jar** file and run it, however make sure your database
+is setup correctly according to the next step
+- see [Usage](##Usage)
+
+### DB Setup
+Navigate to *db/exports* and locate the **schema.sql** and **data.sql** files.
+Import the schema and the data to your MySQL database using your favorite approach.
+If everything imported correctly, that database can now be used with this application.
 
 ## Usage
+Double click the alfa3-all.jar file and the program should start.
 
+Alternatively execute this command from the command line
+`java -jar alfa3-all.jar`
 
 ## Configurations
+U can configure the database access point, but make sure u have the schema
+set up correctly as mentioned in [Installation](##instalation)
 
-Příklad **config** souboru:
+Configurations are read from the *conf/* **config.json** file. 
+This file can be modified to for example change the database connection or
+rename report files generated.
+
+**config** file example:
 
 
     {
-    "cesta_k_souboru":"/home//Projects/alfa2/src/main/resources/testTextLong.txt",
-    "adresar_umisteni_outputu":"default",
-    "nazev_output_souboru":"default",
-    "casovy_tag_v_nazvu":"A",
-    "adresar_umisteni_error_logu":"default",
-    "adresar_umisteni_operacniho_logu":"default"
+        "db":{
+            "database_host":"jdbc:mysql://localhost:3306",
+            "database_name":"alfa3",
+            "username":"username",
+            "password":"password"
+        }
+
     }
 
-**Defaultní konfigurace**
-- Pro defaultní konfiguraci, například pro testování, by měly být všechny hodnoty zapsané na `default`
-- **Defaultní konfigurace**:
-    
+**Default configuration**
+- For the default configuration ensure all the values are equal to:`default`
+- **Default configuration**:
+
         {
-        "cesta_k_souboru":"default",
-        "adresar_umisteni_outputu":"default",
-        "nazev_output_souboru":"default",
-        "casovy_tag_v_nazvu":"default",
-        "adresar_umisteni_error_logu":"default",
-        "adresar_umisteni_operacniho_logu":"default"
+            "db":{
+                "database_host":"default",
+                "database_name":"default",
+                "username":"default",
+                "password":"default"
+            }
+
         }
     
 
 
-**Dá se konfigurovat**:
-- **Input soubor**
-    - Který soubor bude přečten a text v něm kompresován
-    - Cesta k souboru
-- **Adresář output souboru**
-    - Ve kterém adresáři bude soubor s kompresovaným textem uložen
-    - Cesta do adresáře
-- **Jméno output souboru**
-    - Jak se má jmenovat soubor s kompresovaným textem
-- **Časový tag k output souboru**
-    - Jestli se do jména kompresovaného souboru má připsat čas, kdy se operace stala
-    - A = ano | N = ne
-- **Adresář error logu**
-    - Ve kterém adresáři bude uložen záznam o chybách
-- **Adresář operacního logu**
-    - Ve kterém adresáři bude uložen záznam o operacích
-### Docs
-- **Programátorská dokumentace** 
-    - Po provedení Gradle příkazu v části [Jak spustit program](#jak-spustit-program) bude ve adresáři build/docs/javadoc index.html soubor. Zobrazte v prohlížeči pro kompletní javadoc.
-    - Zdrojový kód je také dokumentován
-- **Uživatelská dokumentace**
-    - Teď ji čtete, tento soubor slouží jako uživatelská dokumentace
+## Docs
+- **Developer documentation** 
+    - If Gradle is installed on the system (check with `gradle -v`)
+    the following command can be executed from the command line: 
+        - **Windows**: `gradlew build`
+        - **Unix**: `./gradlew build`
+    After that u can find generated Javadoc in *build/docs/javadoc/index.html*
+- **User documentation**
+    - This can be considered user documentation
 
-### Test scenarios
-- Veškeré unit testy naleznete v adresáři **src/test/java/com/kuta**
-- Unit testy můžete spustit příkazem pokud je nainstalovaný Gradle: NEPOVINNÉ
-    - **Linux** `./gradlew test`
-    - **Windows** `gradlew test`
-    - Zprávu o provedených testech naleznete v adresáři **build/reports/tests/test/index.html** otevřete soubor v prohlížeči
+## Testing and Test scenarios
+- U can find all test scenarios in *test/* as .pdf files 
+- The program does not contain any unit tests
+
 
 
 ## Dependencies
-- Program využívá nástroje na JSON Serializace a Deserializace od Googlu. Nástroj se jmenuje [GSON](https://github.com/google/gson) 
+- Google.com GSON Json parsing and serialization tool. See [GSON](https://github.com/google/gson) 
+- MySql JDBC Driver. See [MySQL Connector/J](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j)
 
-- Na unit testování program využíva **JUnit**, protože Java nemá ve svých základních knihovnách způsob jak unit testovat.
-- **JUnit** je best practice v unit testování
+## Things to work on and shortcomings
+- The application does not provide a great way to delete data from db if the 
+rows depend on each other. This couldn't be implemented due to lack of time.
+- The User Interface is quite bland and boring. Colors couldn't be implemented
+due to lack of time.
+- The application doesn't provide perfect information to solve every error 
+encountered in the user interface. This couldn't be implemented due to lack of time.
+- Application uses a three tier architecture, however I'm inexperienced with
+building three tier applications so the implementation propably isn't very good.
 
-## Things to improve
-- Zadání technicky splňuje do nějáké míry všechny požadavky, ale má své nedostatky.
-- Specificky **Komprese/Komprimace** byla udělaná velice rychle a nesofistikovaně, s průměrným zmenšením cca **10%**
-- Unit testy testují hlavní funkce programu, nepokrývají celý program.

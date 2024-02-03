@@ -20,7 +20,7 @@ public class DoctorDAO implements DAO<Doctor>{
      */
     @Override
     public Doctor getByUUID(byte[] id) {
-        String sql = "Select * from Doctor where id = ?;";
+        String sql = "Select * from Doctor where id = ? order by lname,fname;";
 
         try(Connection c = DatabaseConnector.getConnection()){
             try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
@@ -49,7 +49,7 @@ public class DoctorDAO implements DAO<Doctor>{
 
     @Override
     public List<Doctor> getAll() {
-        String sql = "Select * from Doctor;";
+        String sql = "Select * from Doctor order by lname,fname;";
         try(Connection c = DatabaseConnector.getConnection()){
             try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
                 try(ResultSet results = ps.executeQuery()){

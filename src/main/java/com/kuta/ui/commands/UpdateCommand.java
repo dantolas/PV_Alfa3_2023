@@ -14,7 +14,6 @@ public class UpdateCommand implements CCommand{
 
     SubCommand[] updateFunctions= 
         {
-            ()->{updatePrescription();},
             ()->{updatePatient();},
             ()->{updateInsuranceCompany();},
             ()->{updateMedication();},
@@ -59,6 +58,7 @@ public class UpdateCommand implements CCommand{
             ui.println(" ");
             ui.println("|exit|");
             ui.printSeparatorLine();
+            ui.println("@tasks/update");
             int numberInput = ui.readInputInt(1,4)-1;
             if(numberInput >= 4) return;
 
@@ -67,19 +67,20 @@ public class UpdateCommand implements CCommand{
         }
     }
 
-    public void updatePrescription(){
-    }
-
     public void updateDoctor(){
+        handler.getAPI().update.doctor();
     }
 
     public void updateInsuranceCompany(){
+        handler.getAPI().update.insuranceCompany();
     }
 
     public void updateMedication(){
+        handler.getAPI().update.medication();
     }
 
     public void updatePatient(){
+        handler.getAPI().update.patient();
     }
 
     

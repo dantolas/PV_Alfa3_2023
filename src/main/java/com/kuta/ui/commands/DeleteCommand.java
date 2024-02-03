@@ -8,9 +8,9 @@ import com.kuta.ui.ConsoleUI;
  */
 public class DeleteCommand implements CCommand{
 
+
     ConsoleUI ui;
     CommandHandler handler;
-
     SubCommand[] deleteFunctions = 
         {
             ()->{deletePrescription();},
@@ -60,6 +60,7 @@ public class DeleteCommand implements CCommand{
             ui.println(" ");
             ui.println("|exit|");
             ui.printSeparatorLine();
+            ui.println("@tasks/delete");
             int numberInput = ui.readInputInt(1,5)-1;
             if(numberInput >= 5) return;
 

@@ -2,6 +2,7 @@ package com.kuta.app.objectTemplates;
 
 /**
  * InsuranceCompany
+ * Object model representing the db table
  */
 public class InsuranceCompany {
 
@@ -25,6 +26,8 @@ public class InsuranceCompany {
         this.countryOfOrigin = countryOfOrigin;
         this.shortcut = shortcut;
     }
+
+    public InsuranceCompany(){}
     public byte[] getId() {
         return id;
     }

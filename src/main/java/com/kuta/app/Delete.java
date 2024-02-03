@@ -10,10 +10,8 @@ import com.kuta.app.objectTemplates.Prescription;
 import com.kuta.db.DataLayerAPI;
 import com.kuta.ui.ConsoleUI;
 
-import com.kuta.app.ApplicationLayer;
-
 /**
- * Delete
+ * Bundles all the Delete of the CRUD together
  */
 public class Delete {
 
@@ -28,6 +26,9 @@ public class Delete {
     }
 
     
+    /**
+     * Starts the process of deleting a prescription from db 
+     */
     public void prescription(){
         List<Prescription> prescriptions = dataLayer.getPrescriptionDAO().getAll();
         if(prescriptions.size() < 1){
@@ -44,11 +45,15 @@ public class Delete {
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getPrescriptionDAO().delete(prescription);
             if(success) {
+                ui.printSeparatorLine();
                 ui.println("Prescription sucesfully deleted.||UUID:"+print.uuidToString(prescription.getId()));
+                ui.printSeparatorLine();
                 return;
             }
 
+            ui.printSeparatorLine();
             ui.println("Couldn't delete prescription.");
+            ui.printSeparatorLine();
         }
     }
 
@@ -68,11 +73,15 @@ public class Delete {
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getMedicationDAO().delete(med);
             if(success) {
+                ui.printSeparatorLine();
                 ui.println("Medication "+med.getName()+" Type:"+med.getType()+" sucesfully deleted.||UUID:"+print.uuidToString(med.getId()));
+                ui.printSeparatorLine();
                 return;
             }
 
+            ui.printSeparatorLine();
             ui.println("Couldn't delete medication.");
+            ui.printSeparatorLine();
         }
     }
 
@@ -92,12 +101,16 @@ public class Delete {
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getInsuranceDAO().delete(company);
             if(success) {
+                ui.printSeparatorLine();
                 ui.println("InsuranceCompany "+company.getName()+" Shortcut:"+company.getShortcut()+" sucesfully deleted.||UUID:"+
                     print.uuidToString(company.getId()));
+                ui.printSeparatorLine();
                 return;
             }
 
+                ui.printSeparatorLine();
             ui.println("Couldn't delete company.");
+                ui.printSeparatorLine();
         }
     }
 
@@ -117,11 +130,15 @@ public class Delete {
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getPatientDAO().delete(patient);
             if(success) {
+                ui.printSeparatorLine();
                 ui.println("Patient "+patient.getFname()+" "+patient.getLname()+" sucesfully deleted.||UUID:"+print.uuidToString(patient.getId()));
+                ui.printSeparatorLine();
                 return;
             }
 
+                ui.printSeparatorLine();
             ui.println("Couldn't delete patient.");
+                ui.printSeparatorLine();
         }
         
     }
@@ -141,10 +158,14 @@ public class Delete {
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getDoctorDAO().delete(doctor);
             if(success) {
+                ui.printSeparatorLine();
                 ui.println("Doctor "+doctor.getFname()+" "+doctor.getLname()+" sucesfully deleted.||UUID:"+print.uuidToString(doctor.getId()));
+                ui.printSeparatorLine();
                 return;
             }
+                ui.printSeparatorLine();
             ui.println("Couldn't delete doctor.");
+                ui.printSeparatorLine();
         }
 
         

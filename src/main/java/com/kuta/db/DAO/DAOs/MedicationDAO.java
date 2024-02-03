@@ -47,7 +47,7 @@ public class MedicationDAO implements DAO<Medication>{
 
     @Override
     public List<Medication> getAll() {
-        String sql = "Select * from Medication;";
+        String sql = "Select * from Medication order by name;";
         try(Connection c = DatabaseConnector.getConnection()){
 
             try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){

@@ -11,7 +11,7 @@ import com.kuta.app.objectTemplates.Prescription;
 import com.kuta.ui.ConsoleUI;
 
 /**
- * PrintList
+ * Provides functionality to print lists of all the app.objectTemplates classes
  */
 public class PrintList {
 
@@ -26,7 +26,8 @@ public class PrintList {
     public void doctors(List<Doctor> doctors){
         StringBuilder listString = new StringBuilder();
         for(int i = 0; i < doctors.size(); i++){
-            listString.append(i+1+") ");
+            listString.append("###################\n");
+            listString.append(i+1+") \n");
             Doctor d = doctors.get(i);
             listString.append(d.getFname()+" ");
             listString.append(d.getLname()+" ");
@@ -43,7 +44,8 @@ public class PrintList {
     public void patients(List<Patient> patients){
         StringBuilder listString = new StringBuilder();
         for(int i = 0; i < patients.size(); i++){
-            listString.append(i+1+") ");
+            listString.append("###################\n");
+            listString.append(i+1+") \n");
             Patient p = patients.get(i);
             listString.append(p.getFname()+" ");
             listString.append(p.getLname()+" ");
@@ -62,9 +64,10 @@ public class PrintList {
     public void insuranceCompanies(List<InsuranceCompany> companies){
         StringBuilder listString = new StringBuilder();
         for(int i = 0; i < companies.size(); i++){
+            listString.append("###################\n");
             listString.append(i+1+") ");
             InsuranceCompany c = companies.get(i);
-            listString.append("|Name|:"+c.getName());
+            listString.append("\n|Name|:"+c.getName());
             listString.append("\n|Shortcut|:"+c.getShortcut());
             listString.append("\n|Origin country|:"+c.getCountryOfOrigin());
             listString.append("\n|| UUID:"+uuidToString(c.getId()));
@@ -79,7 +82,8 @@ public class PrintList {
 
         StringBuilder listString = new StringBuilder();
         for(int i = 0; i < meds.size(); i++){
-            listString.append(i+1+") ");
+            listString.append("###################\n");
+            listString.append(i+1+") \n");
             Medication m = meds.get(i);
             listString.append(m.getName()+" ");
             listString.append("Type:"+m.getType());
@@ -95,9 +99,10 @@ public class PrintList {
 
         StringBuilder listString = new StringBuilder();
         for(int i = 0; i < prescriptions.size(); i++){
+            listString.append("###################\n");
             listString.append(i+1+") ");
             Prescription p = prescriptions.get(i);
-            listString.append("|| UUID:"+uuidToString(p.getId()));
+            listString.append("\n|UUID|:"+uuidToString(p.getId()));
             listString.append("\n|Date|:"+p.getDatePrescribed());
             listString.append("\n|Prescriped by|:"+p.getDoctor().getLname()+" "+p.getDoctor().getFname());
             listString.append("\n|Patient|:"+p.getPatient().getFname()+" "+p.getPatient().getLname()+" "+p.getPatient().getBirthNumber());

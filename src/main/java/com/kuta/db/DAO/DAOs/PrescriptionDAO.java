@@ -37,7 +37,8 @@ public class PrescriptionDAO implements DAO<Prescription>{
         """
         Select patient_id,doctor_id,diagnosis,date_prescribed
         from ePrescription
-        where id = ?;
+        where id = ?
+        order by date_prescribed DESC;
         """;
         Prescription prescription = new Prescription();
         prescription.setId(id);
@@ -80,7 +81,8 @@ public class PrescriptionDAO implements DAO<Prescription>{
         String sql = 
         """
         Select id,patient_id,doctor_id,diagnosis,date_prescribed
-        from ePrescription;
+        from ePrescription
+        order by date_prescribed desc;
         """;
         ArrayList<Prescription> prescriptions = new ArrayList<>();
 
@@ -139,7 +141,6 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 try(ResultSet rs = ps.executeQuery()){
 
                     while(rs.next()){
-                        System.out.println("Returned id: "+HexFormat.of().formatHex(rs.getBytes(1)));
                         t.setId(rs.getBytes(1));
 
                     }
@@ -156,7 +157,6 @@ public class PrescriptionDAO implements DAO<Prescription>{
             values(?,?,?,?,?);
             """;
             for(Item item : t.getMeds()){
-                System.out.println("Inserting item");
 
                 try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
                     ps.setBytes(1,t.getId());
