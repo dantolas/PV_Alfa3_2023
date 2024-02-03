@@ -1,10 +1,10 @@
 package com.kuta.db;
 
-import com.kuta.app.dbObjects.Doctor;
-import com.kuta.app.dbObjects.InsuranceCompany;
-import com.kuta.app.dbObjects.Medication;
-import com.kuta.app.dbObjects.Patient;
-import com.kuta.app.dbObjects.Prescription;
+import com.kuta.app.objectTemplates.Doctor;
+import com.kuta.app.objectTemplates.InsuranceCompany;
+import com.kuta.app.objectTemplates.Medication;
+import com.kuta.app.objectTemplates.Patient;
+import com.kuta.app.objectTemplates.Prescription;
 import com.kuta.db.DAO.DAOs.DAO;
 import com.kuta.db.DAO.DAOs.DoctorDAO;
 import com.kuta.db.DAO.DAOs.InsuranceDAO;

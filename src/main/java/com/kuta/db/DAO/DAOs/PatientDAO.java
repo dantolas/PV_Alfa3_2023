@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kuta.app.dbObjects.InsuranceCompany;
-import com.kuta.app.dbObjects.Patient;
+import com.kuta.app.objectTemplates.InsuranceCompany;
+import com.kuta.app.objectTemplates.Patient;
 import com.kuta.db.DatabaseConnector;
 
 /**

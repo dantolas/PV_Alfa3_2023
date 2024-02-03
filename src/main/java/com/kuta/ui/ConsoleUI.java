@@ -74,7 +74,7 @@ public class ConsoleUI {
     /**
      * Reads user input until an integer is submitted.
      * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
-     * @return The integer inputed, OR Integer.MIN_VALUE if the user types 'exit'
+     * @return The integer inputed, OR 0 if the user types 'exit'
      */
     public int readInputInt(){
         int number = 0;
@@ -83,7 +83,7 @@ public class ConsoleUI {
             try {
 
                 String input = reader.nextLine();
-                if(input.toLowerCase().equals("exit")) return Integer.MIN_VALUE;
+                if(input.toLowerCase().equals("exit")) return 0;
                 number = Integer.parseInt(input);
                 break;
                 
@@ -97,7 +97,7 @@ public class ConsoleUI {
      * Reads user input until an integer is submitted that fits within max.
      * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
      * @param Maximum value allowed
-     * @return The integer inputed, OR Integer.MIN_VALUE if the user types 'exit'
+     * @return The integer inputed, OR max+1 if the user types 'exit'
      */
     public int readInputInt(int max){
         int number = 0;
@@ -106,7 +106,7 @@ public class ConsoleUI {
             try {
 
                 String input = reader.nextLine();
-                if(input.toLowerCase().equals("exit")) return Integer.MIN_VALUE;
+                if(input.toLowerCase().equals("exit")) return max+1;
                 number = Integer.parseInt(input);
                 if(number <= max)break;
                 println("Number must up to "+max);
@@ -122,7 +122,7 @@ public class ConsoleUI {
      * Input is read as string and then parsed to avoid dealing with buffer flushing and unconsumed hidden bytes.
      * @param -0:min Minimum value allowed
      * @param -1:max Maximum value allowed
-     * @return The integer inputed, OR Integer.MIN_VALUE if the user types 'exit'
+     * @return The integer inputed, OR max+1 if the user inputs 'exit'
      */
     public int readInputInt(int min, int max){
         int number = 0;
@@ -131,7 +131,7 @@ public class ConsoleUI {
             try {
 
                 String input = reader.nextLine();
-                if(input.toLowerCase().equals("exit")) return Integer.MIN_VALUE;
+                if(input.toLowerCase().equals("exit")) return max+1;
                 number = Integer.parseInt(input);
                 if(number >= min && number <= max)break;
                 println("Number must be within "+min+"-"+max);

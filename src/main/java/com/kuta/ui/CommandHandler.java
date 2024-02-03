@@ -48,7 +48,7 @@ public class CommandHandler {
         String[] args = new String[cut.length - 1];
         if(cut.length > 1){
 
-            for(int i = 1; i < cut.length; i++){
+            for(int i = 1; i < args.length; i++){
                 args[i] = cut[i];
             }
         }

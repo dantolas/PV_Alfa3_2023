@@ -11,6 +11,15 @@ public class DeleteCommand implements CCommand{
     ConsoleUI ui;
     CommandHandler handler;
 
+    SubCommand[] deleteFunctions = 
+        {
+            ()->{deletePrescription();},
+            ()->{deletePatient();},
+            ()->{deleteInsuranceCompany();},
+            ()->{deleteMedication();},
+            ()->{deleteDoctor();}
+        };
+
     public DeleteCommand(CommandHandler handler){
         this.handler = handler;
         this.ui = handler.getCui();
@@ -45,39 +54,38 @@ public class DeleteCommand implements CCommand{
         5) Doctor
         ----------------
         """;
-        ui.print(list);
-        ui.printSeparatorLine();
-        int numberInput = ui.readInputInt(1,5)-1;
+        while(true){
 
-        SubCommand[] subs = {
-            ()->{},
-            ()->{deletePatient();},
-            ()->{},
-            ()->{},
-            ()->{deleteDoctor();}
-        };
+            ui.print(list);
+            ui.println(" ");
+            ui.println("|exit|");
+            ui.printSeparatorLine();
+            int numberInput = ui.readInputInt(1,5)-1;
+            if(numberInput >= 5) return;
 
-        subs[numberInput].work();
+
+            deleteFunctions[numberInput].work();
+        }
     }
 
     public void deletePrescription(){
-
+        handler.getAPI().delete.prescription();
     }
 
     public void deleteDoctor(){
-        handler.getAPI().deleteDoctor();
+        handler.getAPI().delete.doctor();
     }
 
     public void deleteInsuranceCompany(){
-
+        handler.getAPI().delete.insuranceCompany();
     }
 
     public void deleteMedication(){
-
+        handler.getAPI().delete.medication();
     }
 
     public void deletePatient(){
-        handler.getAPI().deletePatient();
+        handler.getAPI().delete.patient();
     }
 
 }

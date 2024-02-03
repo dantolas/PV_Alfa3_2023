@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kuta.app.dbObjects.Doctor;
+import com.kuta.app.objectTemplates.Doctor;
 import com.kuta.db.DatabaseConnector;
 
 /**
