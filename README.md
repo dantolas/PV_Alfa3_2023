@@ -20,8 +20,8 @@
 This application provides a database design for managing medical ePrescriptions
 for medication.
 
-It also provides and API to work with mentioned database, and a CLI that can
-operate on the API.
+It also provides an **API** to work with mentioned **database**, and a CLI that can
+operate on the **API**.
 
 The application provides basic CRUD functionality, along with generating data
 reports and a degree of configuration.
@@ -38,12 +38,12 @@ Clone this repository from the command line
 
 Or download the entire repository as a zip file
 
-Make sure all that ideally all the requirements are installed, or at least the mandatory ones.
+Make sure that ideally all the requirements are installed, or at least the mandatory ones.
 See [Requirements](#requirements)
 
 ### DB Setup
 Navigate to *db/exports* and locate the **schema.sql** and **data.sql** files.
-Import the schema and the data to your MySQL database using your favorite approach.
+Import the schema and the data to your **MySQL** database using your favorite approach.
 If everything imported correctly, that database can now be used with this application.
 
 ## Usage
@@ -57,7 +57,7 @@ Alternatively execute this command from the command line
 `java -jar alfa3-all.jar`
 
 The User Interface will then guide you through further usage of the application.
-U can also view test scenarios in /test. See [Testing](#testing-and-test-scenarios)
+U can also view **test scenarios** in */test*. See [Testing](#testing-and-test-scenarios)
 
 ## Configurations
 U can configure the database access point, but make sure u have the schema
