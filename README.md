@@ -10,6 +10,8 @@
 4. [Usage](#usage)
 5. [Configurations](#configurations)
 6. [Docs](#docs)
+7. [Architecture and design patterns](#architecture-and-design-patterns)
+8. [Application runtime behavior](#app-runtime-behaviour)
 7. [Testing](#testing-and-test-scenarios)
 8. [Dependencies](#dependencies)
 9. [Shortcomings](#things-to-work-on-and-shortcomings)
@@ -43,6 +45,9 @@ Import the schema and the data to your MySQL database using your favorite approa
 If everything imported correctly, that database can now be used with this application.
 
 ## Usage
+BEFORE running the application, make sure u have completed all steps and configured your
+database entry point in *conf/config.json*. 
+
 Double click the **alfa3-all.jar** file and the program should start.
 
 Alternatively execute this command from the command line
@@ -84,6 +89,11 @@ rename report files generated.
             }
 
         }
+- What are the **default** values?
+    - `host` : localhost:3306
+    - `name` : alfa3
+    - `username` : su
+    - `password` : student
     
 
 
@@ -94,6 +104,8 @@ rename report files generated.
         - **Windows**: `gradlew build`
         - **Unix**: `./gradlew build`
     After that u can find generated Javadoc in *build/docs/javadoc/index.html*
+
+    - Or just read the src code and documentation directly if u dare :]
 - **User documentation**
     - This can be considered user documentation
 
@@ -102,7 +114,7 @@ rename report files generated.
 - The entire application is developed (or at least attempted) using **Three tier**
 design architecture.
 - A tier of an application can only communicate with the tier below and above it.
-- UI Tier <--> Application Tier <--> Data Tier
+- **UI Tier** <--> **Application Tier** <--> **Data Tier**
 - Application is seperated into three tiers:
     - **User interface tier**
     User interacts with only this tier of the application
@@ -121,9 +133,20 @@ design architecture.
 - **Relational Diagram**
 ![Relational diagram](./db/Relational_1.png)
     
+## App runtime behaviour
+- The application first initializes itself and tests database connection. If everything is correctly
+setup and configured, the application starts it's run cycle.
+- Application is command based and waits for user input. Once the user inputs a command, the
+command hadnler of the **UI Tier** of the application communicates with the **Application Tier**
+from where work can be done.
+- All erros that could occur are caught by the **Application Tier** ErrorHandler class, that handles
+different exceptions appropriately.
+
 
 ## Testing and Test scenarios
 - U can find all test scenarios in *test/* as .pdf files 
+- Reading this documentation is however still advised as the test scenarios function just as quick
+guides
 - The program does not contain any unit tests
 
 
