@@ -125,14 +125,27 @@ public class ApplicationLayer {
         handler.setAppLayer(app);
 
         Config config;
-        try {
-            config = Config.createFromFile(System.getProperty("user.dir")+"/conf/config.json");
-            DatabaseConnector.init(config.db.getHostname(),config.db.name,config.db.username,config.db.password);
-            if(!DatabaseConnector.testConnection()) throw new InitException("Couldn't connect to database with the following settings:\n"+DatabaseConnector.settingsToString());
-        } catch (IOException e) {
-            errorHandler.handle(new InitException("Couldn't start the program because of an IO error, please try again"));
-        } catch (InitException e) {
-            errorHandler.handle(e);
+        while(true){
+
+            try {
+                config = Config.createFromFile(System.getProperty("user.dir")+"/conf/config.json");
+                DatabaseConnector.init(config.db.getHostname(),config.db.name,config.db.username,config.db.password);
+                if(!DatabaseConnector.testConnection()) throw new InitException("Couldn't connect to database with the following settings:\n"+DatabaseConnector.settingsToString());
+                break;
+            } catch (IOException e) {
+                errorHandler.handle(new InitException("Couldn't start the program because of an IO error, please try again"));
+                ui.printSeparatorLine();
+                ui.println("Start again?");
+                ui.printSeparatorLine();
+                if(!ui.readInputBoolean()) return null;
+                
+            } catch (InitException e) {
+                errorHandler.handle(e);
+                ui.printSeparatorLine();
+                ui.println("Start again?");
+                ui.printSeparatorLine();
+                if(!ui.readInputBoolean()) return null;
+            }
         }
 
         return app;

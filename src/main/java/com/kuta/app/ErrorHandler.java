@@ -18,9 +18,9 @@ public class ErrorHandler {
         this.ui = ui;
     }
     public void handle(InitException e){
-        ui.println("|ERROR| Error occured while testing database connection. Please make sure your configuration is valid.");
-        ui.println("Print stack trace?");
-        if(ui.readInputBoolean()) e.printStackTrace();
+        ui.printSeparatorLine();
+        ui.println("|ERROR| Error occured while testing database connection. Please make sure your configuration is valid and then try again.\nMessage:"+e.getMessage());
+        ui.printSeparatorLine();
     }
     public void handle(SQLException e){
         ui.println("|ERROR| An SQL error has occured. Please check the status of your server, or make sure your queries are valid.");
