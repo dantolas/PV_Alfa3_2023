@@ -67,8 +67,8 @@ public class Config {
     public void checkDefaults(){
         if(this.db.host.toLowerCase().equals("default")) db.host = "localhost:3306";
         if(this.db.name.toLowerCase().equals("default")) db.name = "alfa3";
-        if(this.db.username.toLowerCase().equals("default")) db.username = "charming";
-        if(this.db.password.toLowerCase().equals("default")) db.password = "kuta";
+        if(this.db.username.toLowerCase().equals("default")) db.username = "su";
+        if(this.db.password.toLowerCase().equals("default")) db.password = "student";
     }
 
 

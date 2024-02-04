@@ -1,6 +1,6 @@
 {
     "db":{
-        "database_host":"WRONG",
+        "database_host":"default",
         "database_name":"default",
         "username":"default",
         "password":"default"
