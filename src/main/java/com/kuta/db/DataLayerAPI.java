@@ -1,5 +1,10 @@
 package com.kuta.db;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.kuta.app.objectTemplates.Doctor;
 import com.kuta.app.objectTemplates.InsuranceCompany;
 import com.kuta.app.objectTemplates.Medication;
@@ -20,6 +25,87 @@ import com.kuta.db.DAO.DAOs.PrescriptionDAO;
  * Uses DAO design pattern for database tables.
  */
 public class DataLayerAPI {
+
+    public String getPrescSummReport() throws SQLException{
+        try(Connection c = DatabaseConnector.getConnection()){
+            String sql = 
+            """
+            select * from Presc_Summ;
+            """;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+
+                StringBuilder report = new StringBuilder("# Prescriptions summary data report\n");
+                report.append("| Prescribed | Doctor | Patient | Diagnosis | Medicine |\n");
+                report.append("| ---------- | ------ | ------- | --------- | -------- |\n");
+                try(ResultSet rs = ps.executeQuery()){
+
+                    while(rs.next()){
+                        report.append("| "+rs.getString(1));
+                        report.append("| "+rs.getString(2));
+                        report.append("| "+rs.getString(3));
+                        report.append("| "+rs.getString(4));
+                        report.append("| "+rs.getString(5) + " |");
+                        report.append("\n");
+                    }
+                    return report.toString();
+
+                }
+
+            }
+        }
+    }
+
+    public String getInsurancePatientsReport() throws SQLException{
+        try(Connection c = DatabaseConnector.getConnection()){
+            String sql = 
+            """
+            select * from Insurance_Patient_Count;
+            """;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+
+                StringBuilder report = new StringBuilder("# Patiens registered with different insurance companies data report\n");
+                report.append("| Registered patients | Insurance |\n");
+                report.append("| ------------------- | --------- |\n");
+                try(ResultSet rs = ps.executeQuery()){
+
+                    while(rs.next()){
+                        report.append("| "+rs.getInt(1));
+                        report.append("| "+rs.getString(2)+" |");
+                        report.append("\n");
+                    }
+                    return report.toString();
+
+                }
+
+            }
+        }
+    }
+
+    public String getPrescHandedOutReport() throws SQLException{
+        try(Connection c = DatabaseConnector.getConnection()){
+            String sql = 
+            """
+            select * from Prescriptions_Handed_Out;
+            """;
+            try(PreparedStatement ps = DatabaseConnector.prepSql(c,sql)){
+
+                StringBuilder report = new StringBuilder("# Prescriptions handed out data report\n");
+                report.append("| Prescriptions handed out | Doctor |\n");
+                report.append("| ------------------------ | ------ |\n");
+                try(ResultSet rs = ps.executeQuery()){
+
+                    while(rs.next()){
+                        report.append("| "+rs.getInt(1));
+                        report.append("| "+rs.getString(2)+" |");
+                        report.append("\n");
+                    }
+                    return report.toString();
+
+                }
+
+            }
+        }
+    }
 
     public DAO<Doctor> getDoctorDAO() {
         return doctorDAO;

@@ -59,6 +59,8 @@ public class DatabaseConnector {
         }
     }
 
+
+
     /**
      * Initialize the connector
      * @param dbHost Hostname of db server
@@ -73,5 +75,8 @@ public class DatabaseConnector {
 
     }
 
+    public static String settingsToString(){
+        return connectionUrl + " -u " + username + "-p " + password;
+    }
     
 }

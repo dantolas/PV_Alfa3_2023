@@ -64,3 +64,29 @@ create table Prescription_item(
     insurance_covered BIT(1) not null,
     description varchar(255)
 );
+
+
+create view Presc_Summ as
+select e.date_prescribed as "Prescribed", 
+Concat(d.fname," ",d.lname) as Doctor,
+Concat(p.fname," ",p.lname) as Patient,
+e.diagnosis as Diagnosis,
+GROUP_CONCAT(Medication.name) as "Medicine"
+from ePrescription as e 
+inner join Doctor as d on e.doctor_id = d.id 
+inner join Patient as p on e.patient_id = p.id 
+inner join Prescription_item as pi on e.id = pi.prescription_id 
+inner join Medication on pi.medication_id = Medication.id 
+group by e.id 
+order by Prescribed DESC;
+
+COMMIT;
+
+create view Insurance_Patient_Count as
+select count(Patient.id) as "Patients registered" ,InsuranceCompany.shortcut as "Insurance" from InsuranceCompany inner join Patient on InsuranceCompany.id = Patient.insurance_company_id group by InsuranceCompany.shortcut;
+
+COMMIT;
+create view Prescriptions_Handed_Out as
+select count(ePrescription.id) as "Prescriptions handed" ,CONCAT(Doctor.fname," ",Doctor.lname) as Doctor from Doctor inner join ePrescription on Doctor.id = ePrescription.doctor_id group by Doctor order by "Prescriptions handed" desc;
+
+COMMIT;

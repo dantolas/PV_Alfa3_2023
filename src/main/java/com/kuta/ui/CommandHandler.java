@@ -11,6 +11,7 @@ import com.kuta.ui.commands.ClearCommand;
 import com.kuta.ui.commands.DeleteCommand;
 import com.kuta.ui.commands.HelpCommand;
 import com.kuta.ui.commands.ReadCommand;
+import com.kuta.ui.commands.ReportCommand;
 import com.kuta.ui.commands.UpdateCommand;
 
 /**
@@ -116,6 +117,7 @@ public class CommandHandler {
         this.commands.add(new UpdateCommand(this));
         this.commands.add(new AddCommand(this));
         this.commands.add(new ReadCommand(this));
+        this.commands.add(new ReportCommand(this));
 
         return this;
 

@@ -32,7 +32,9 @@ public class Delete {
     public void prescription(){
         List<Prescription> prescriptions = dataLayer.getPrescriptionDAO().getAll();
         if(prescriptions.size() < 1){
+            ui.printSeparatorLine();
             ui.println("No prescriptions in database.");
+            ui.printSeparatorLine();
             return;
         }
         while(true){
@@ -42,6 +44,7 @@ public class Delete {
             int numberInput = ui.readInputInt(1,prescriptions.size())-1;
             if(numberInput == prescriptions.size()) return;
             Prescription prescription = prescriptions.get(numberInput);
+            ui.printSeparatorLine();
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getPrescriptionDAO().delete(prescription);
             if(success) {
@@ -60,7 +63,9 @@ public class Delete {
     public void medication(){
         List<Medication> meds= dataLayer.getMedicationDAO().getAll();
         if(meds.size() < 1){
+            ui.printSeparatorLine();
             ui.println("No meds in database.");
+            ui.printSeparatorLine();
             return;
         }
         while(true){
@@ -70,6 +75,7 @@ public class Delete {
             int numberInput = ui.readInputInt(1,meds.size())-1;
             if(numberInput == meds.size()) return;
             Medication med = meds.get(numberInput);
+            ui.printSeparatorLine();
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getMedicationDAO().delete(med);
             if(success) {
@@ -88,7 +94,9 @@ public class Delete {
     public void insuranceCompany(){
         List<InsuranceCompany> companies = dataLayer.getInsuranceDAO().getAll();
         if(companies.size() < 1){
+            ui.printSeparatorLine();
             ui.println("No companies in database.");
+            ui.printSeparatorLine();
             return;
         }
         while(true){
@@ -98,6 +106,7 @@ public class Delete {
             int numberInput = ui.readInputInt(1,companies.size())-1;
             if(numberInput == companies.size()) return;
             InsuranceCompany company = companies.get(numberInput);
+            ui.printSeparatorLine();
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getInsuranceDAO().delete(company);
             if(success) {
@@ -117,7 +126,9 @@ public class Delete {
     public void patient(){
         List<Patient> patients = dataLayer.getPatientDAO().getAll();
         if(patients.size() < 1){
+            ui.printSeparatorLine();
             ui.println("No patients in database.");
+            ui.printSeparatorLine();
             return;
         }
         while(true){
@@ -127,6 +138,7 @@ public class Delete {
             int numberInput = ui.readInputInt(1,patients.size())-1;
             if(numberInput == patients.size()) return;
             Patient patient = patients.get(numberInput);
+            ui.printSeparatorLine();
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getPatientDAO().delete(patient);
             if(success) {
@@ -145,7 +157,9 @@ public class Delete {
     public void doctor(){
         List<Doctor> doctors = dataLayer.getDoctorDAO().getAll();
         if(doctors.size() < 1){
+            ui.printSeparatorLine();
             ui.println("No doctors in database.");
+            ui.printSeparatorLine();
             return;
         }
         while(true){
@@ -155,6 +169,7 @@ public class Delete {
             int numberInput = ui.readInputInt(1,doctors.size())-1;
             if(numberInput == doctors.size()) return;
             Doctor doctor = doctors.get(numberInput);
+            ui.printSeparatorLine();
             if(!ui.readInputBoolean()) continue;
             boolean success = dataLayer.getDoctorDAO().delete(doctor);
             if(success) {

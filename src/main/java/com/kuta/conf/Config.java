@@ -1,12 +1,14 @@
 package com.kuta.conf;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.kuta.util.IO;
 import com.kuta.vendor.JsonGson;
 
 public class Config {
@@ -36,36 +38,37 @@ public class Config {
             + ", \"username\":" + username + ", \"password\":" + password + "}";
         }
 
+        public String getHostname(){
+            return "jdbc:mysql://"+host;
+        }
+
 
     }
     
     public DB db;
 
-    public static String readFileToString(String filepath) throws IOException{
-
-        BufferedReader reader = Files.newBufferedReader(Paths.get(filepath));
-
-        StringBuilder builder = new StringBuilder();
-
-        String currLine = reader.readLine();
-        while(currLine != null){
-
-            builder.append(currLine);
-            currLine = reader.readLine();
-        }
-
-        return builder.toString();
-
-    }
 
     public Config(){
     }
 
-    public static Config createFromFile(String filepath) throws IOException{
+    public static Config createFromFile(String filepath) throws FileNotFoundException, IOException{
+        String json = IO.readFileIntoString(filepath);
+        Config config = fromJson(json); 
+        config.checkDefaults();
+        return config;
 
-        String json = readFileToString(filepath);
+    }
+
+    public static Config fromJson(String json){
+
         return GSON.fromJson(json,Config.class);
+    }
 
+    public void checkDefaults(){
+        if(this.db.host.toLowerCase().equals("default")) db.host = "localhost:3306";
+        if(this.db.name.toLowerCase().equals("default")) db.name = "alfa3";
+        if(this.db.username.toLowerCase().equals("default")) db.username = "charming";
+        if(this.db.password.toLowerCase().equals("default")) db.password = "kuta";
     }
 
 

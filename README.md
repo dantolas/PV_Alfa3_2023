@@ -1,6 +1,6 @@
-
 # Project alfa 3 -- Database system
-## Kuta Samuel C4b 
+## School project for SPŠE Ječná (Střední průmyslová škola elektrotechnická, Praha 2, Ječná 30)
+## AUTHOR: Kuta Samuel C4b 
 
 ## Table of contents (TOC)
 ==========================
@@ -43,10 +43,12 @@ Import the schema and the data to your MySQL database using your favorite approa
 If everything imported correctly, that database can now be used with this application.
 
 ## Usage
-Double click the alfa3-all.jar file and the program should start.
+Double click the **alfa3-all.jar** file and the program should start.
 
 Alternatively execute this command from the command line
 `java -jar alfa3-all.jar`
+
+The User Interface will then guide you through further usage of the application.
 
 ## Configurations
 U can configure the database access point, but make sure u have the schema
@@ -61,8 +63,8 @@ rename report files generated.
 
     {
         "db":{
-            "database_host":"jdbc:mysql://localhost:3306",
-            "database_name":"alfa3",
+            "database_host":"localhost:3306",
+            "database_name":"yourDB",
             "username":"username",
             "password":"password"
         }
@@ -95,6 +97,31 @@ rename report files generated.
 - **User documentation**
     - This can be considered user documentation
 
+## Architecture and design patterns
+### Application
+- The entire application is developed (or at least attempted) using **Three tier**
+design architecture.
+- A tier of an application can only communicate with the tier below and above it.
+- UI Tier <--> Application Tier <--> Data Tier
+- Application is seperated into three tiers:
+    - **User interface tier**
+    User interacts with only this tier of the application
+
+    - **Application tier**
+    This layer serves as an API that connects the layers and can do work with both of them.
+
+    - **Data tier**
+    This layer is responsible for connecting to database and providing means of receiving data and 
+    processing and saving data.
+    - Data tier uses the DAO design pattern to shape data from database into Class instance objects
+    that are then handled by the application tier
+### Database
+- **Logical Diagram**
+![Logical diagram](./db/Logical.png)
+- **Relational Diagram**
+![Relational diagram](./db/Relational_1.png)
+    
+
 ## Testing and Test scenarios
 - U can find all test scenarios in *test/* as .pdf files 
 - The program does not contain any unit tests
@@ -114,4 +141,8 @@ due to lack of time.
 encountered in the user interface. This couldn't be implemented due to lack of time.
 - Application uses a three tier architecture, however I'm inexperienced with
 building three tier applications so the implementation propably isn't very good.
+- Imports also couldn't be implemented due to lack of time and burnout.
+- Reports were originally meant to be generated in .pdf format, but this would
+be very time consumign manually and most libraries that accomlpish this have 
+some not so great licensing requirements
 
