@@ -4,15 +4,15 @@
 
 ## Table of contents (TOC)
 ==========================
-1. [Introduction](##introduction)
-2. [Requirements](##requirements)
-3. [Installation](##installation)
-4. [Usage](##usage)
-5. [Configurations](##configurations)
-6. [Docs](##docs)
-7. [Testing](##testing-and-test-scenarios)
-8. [Dependencies](##dependencies)
-9. [Shortcomings](##things-to-work-on-and-shortcomings)
+1. [Introduction](#introduction)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [Configurations](#configurations)
+6. [Docs](#docs)
+7. [Testing](#testing-and-test-scenarios)
+8. [Dependencies](#dependencies)
+9. [Shortcomings](#things-to-work-on-and-shortcomings)
 
 ## Introduction
 This application provides a database design for managing medical ePrescriptions
