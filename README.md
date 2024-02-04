@@ -29,15 +29,17 @@ reports and a degree of configuration.
 ## Requirements
 `Java` - version *20.0.1*+
 `Git` - *OPTIONAL*
+`MySQL Server` - version *8.0.30*+
 `Gradle` - version *9.4*+ *OPTIONAL*
 
 ## Installation
-For the full experience clone this repository from the command line
+Clone this repository from the command line
 `git clone address <directory>`
 
-Or just download the **jar** file and run it, however make sure your database
-is setup correctly according to the next step
-- see [Usage](##Usage)
+Or download the entire repository as a zip file
+
+Make sure all that ideally all the requirements are installed, or at least the mandatory ones.
+See [Requirements](#requirements)
 
 ### DB Setup
 Navigate to *db/exports* and locate the **schema.sql** and **data.sql** files.
@@ -47,6 +49,7 @@ If everything imported correctly, that database can now be used with this applic
 ## Usage
 BEFORE running the application, make sure u have completed all steps and configured your
 database entry point in *conf/config.json*. 
+- See [Configurations](#configurations) for default configuration values and what should be configured.
 
 Double click the **alfa3-all.jar** file and the program should start.
 
@@ -54,14 +57,17 @@ Alternatively execute this command from the command line
 `java -jar alfa3-all.jar`
 
 The User Interface will then guide you through further usage of the application.
+U can also view test scenarios in /test. See [Testing](#testing-and-test-scenarios)
 
 ## Configurations
 U can configure the database access point, but make sure u have the schema
 set up correctly as mentioned in [Installation](##instalation)
 
 Configurations are read from the *conf/* **config.json** file. 
-This file can be modified to for example change the database connection or
-rename report files generated.
+- Make sure this file exists and it's struture complies with the examples below.
+
+This file can be modified to change the database connection point; 
+
 
 **config** file example:
 
@@ -107,7 +113,8 @@ rename report files generated.
 
     - Or just read the src code and documentation directly if u dare :]
 - **User documentation**
-    - This can be considered user documentation
+    - This can be considered as user documentation and should be read thoroughly.
+    - Additional information and guides can be found in test scenarios.
 
 ## Architecture and design patterns
 ### Application
